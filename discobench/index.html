@@ -1,0 +1,240 @@
+<!doctype html>
+
+<head>
+  <title>DiscoBench</title>
+  <meta name="description" content="An Open-Ended Benchmark for Automated Algorithm Discovery"/>
+  <meta property="og:title" content="DiscoBench"/>
+  <meta property="og:description" content="Web publication for &quot;DiscoBench&quot;" />
+
+  <script>
+    console.log = function() {};
+    console.groupCollapsed = function() {};
+    console.debug = function() {};
+  </script>
+  <script src="dist/template.v2.js"></script>
+  <link rel="stylesheet" href="dist/bootstrap.forms.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+          crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js></script>
+
+  <link rel="stylesheet" href="dist/demo.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪩</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf8">
+  <style>
+d-article ul {
+  list-style: disc !important;
+  margin-left: 20px !important;
+  padding-left: 20px !important;
+}
+
+d-article li {
+  list-style: disc !important;
+  margin-bottom: 0.5rem !important;
+}
+
+
+</style>
+    <base target="_blank">
+</head>
+<body>
+  <d-front-matter>
+    <script id='distill-front-matter' type="text/json">{
+    "title": "DiscoBench",
+    "description": "An Open-Ended Benchmark for Automated Algorithm Discovery",
+    "published": "November 6, 2025",
+    "pubUrl": "https://arxiv.org/",
+    "pubVenue": "arXiv",
+    "authors": [
+      {
+        "author":"Alexander D. Goldie",
+        "authorURL":"Alex Goldie Website",
+        "affiliations": [
+          {"name": "University of Oxford", "url":"https://twitter.com/AlexDGoldie"}]
+      }
+    ],
+    "katex": {
+      "delimiters": [
+        {"left": "$$", "right": "$$", "display": false}
+      ]
+    }
+  }</script>
+  </d-front-matter>
+  <div id='cover'>
+    <div id="cover-video-tint"></div>
+    <d-title id="title"></d-title>
+    <img id="disco-ball" src="dist/img/discoball.gif" alt="disco ball">
+    <d-description id="description"></d-description>
+
+    
+  </div>
+  
+  <style>
+    #disco-ball {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      top: 50%;
+      left: 50%;
+      transform: translate(200%, -25%);
+      margin-left: -220px; /* Adjust this to position it next to "DiscoBench" */
+      margin-top: -00px; /* Adjust this to align vertically */
+    }
+  </style>
+      <!-- AUTHOR LIST START -->
+  <!-- <div id="authors">
+    <p class="author-line">
+      <a href="https://twitter.com/AlexDGoldie">Alexander D. Goldie<sup>1</sup></a>,
+      <a href="#">Alexander D. Goldie<sup>2</sup></a>,
+      <a href="#">Alexander D. Goldie<sup>1,3</sup></a>
+    </p>
+    <p class="affiliations">
+      <sup>1</sup> University of Oxford &nbsp;&nbsp;
+      <sup>2</sup> University of Oxford &nbsp;&nbsp;
+      <sup>3</sup> University of Oxford
+    </p>
+  </div> -->
+  <!-- AUTHOR LIST END -->
+
+  </div>
+  <d-byline></d-byline>
+
+  <d-article>
+
+    <h2>Overview</h2>
+
+    <p>Benchmarks for algorithms discovery are: too easy; not open-ended; don't focus on <i>algorithm</i> transfer; or need full codebases to get started! DiscoBench has a modular setup, a way to measure algorithm transfer, and a huge breadth of tasks! This should enable better research in algorithm discovery, and a much more open-ended landscape for evaluating AI research agents!</p>
+    
+
+    <h2>
+      Introduction
+    </h2>
+
+    <p>The goal of AI Scientist systems is to, eventually, automate AI research itself. To be able to do this, we need to be able to <i>measure</i> the ability of AI scientists. While current benchmarks do exist, they are fundamentally limited in a number of ways. DiscoBench is a new benchmark and research environment for algorithm discovery agents which seeks to overcome these difficulties. DiscoBench is designed in a scalable fashion, with the issues of current benchmarks in mind, such that we hope it can remain pertinent for a long time. Below, we explain <i>why</i> DiscoBench is so useful, and some of the tasks that are currently implemented in it; expect these to grow over the next few months!</p>
+
+
+    <h2>The Problem With Current Benchmarks</h2>
+
+
+
+      <ul>
+      <li><p><b>Close-Ended Problems</b>: Most current algorithm discovery benchmarks (MLEBench, Others etc.) focus on small-scale Kaggle-style problems, wherein problems are very different to cutting-edge research challenges. Ideally, we want a benchmark which does <b>not</b> have a right answer, and there is always space for improvement.</p></li>  
+
+      <li><p><b>Poor Evaluation</b>: Like in all machine learning, proper evaluation requires a <i>train-test</i> dataset separation. Most preexisting benchmarks do this on the model-level - i.e., a successful algorithm is one which trains a model to generalise to a test dataset. This misses the correct train-test boundary; we are find algorithms on the meta-scale, and so rather than finding models which transfer to test, we should be measuring the transfer of <b>algorithms</b> to train models in a completely new domain.</p></li>
+
+      <li><p><b>Limited Diversity</b>: Existing benchmarks require manually creating <i>every single</i> problem, which requires a lot of time and results in significant repetition!</p></li>
+
+      <li><p><b>Bias To The Initialisation</b>: Because of how they are implemented, most preexisting benchmarks require initialising a codebase from a fully working, preexisting implementation. Initialising an agent in a local minimum can be very difficult to escape, and limits the creativity that we hope to elicit from AI research agents.</p></li>
+        </ul>
+
+      <h1>Table showing difference between current common benchmarks</h1>
+    <h2>What is DiscoBench?</h2>
+
+      <p>
+        DiscoBench is a new benchmark and research environment for algorithm discovery in AI. Its main contributions are as follow:
+      </p>
+
+      <ul>
+      <li><b>Modular File System</b>: To massively expand task-diversity, we implement each task in a <i>modular</i> fashion. For every ML codebase we use, we identify a series of small <i>modules</i> which we can mark as <i>editable</i> (the LLM is fed an empty file) or <i>fixed</i> (the code uses a prewritten file). For example, in one task the modules could be the <b>network architecture</b>, the <b>loss function</b> and the <b>optimiser</b>. For the cost of implementing a single codebase with $$n$$ modules, we can get $$n!-1$$ different possible tasks - and when a module is <i>editable</i>, we can start the agent off with a near-empty file, so we don't get biased too close to the initialisation!</li>  
+      
+      <li><b>Train-Test Split</b>: Our benchmark is implemented with a clear <i>Train-Test</i> distinction. In DiscoBench, we define this split clearly - we evaluate the transferability of the <i>algorithms</i> written by agents, meaning we test how well a learning algorithm generalises for training a completely new model! It turns out, it's really easy to overfit algorithms to specific problems (which isn't that useful when we want to solve AI)!</li>  
+
+      <li><b>Open-Ended Task Space</b>: In DiscoBench, we focus on up-to-date codebases and unsaturated datasets and environments. Given these represent real research problems, without a "correct" answer, they are inherently open-ended problems that rely on creativity and effective contextual reasoning to maximise performance in.</li>
+      </ul>
+
+    <h2>A Figure showing something to do with modules</h2>
+
+<div style="max-width: 800px; margin: 0 auto;">
+  <h2>Using DiscoBench</h2>
+  
+  <p>Getting started with DiscoBench is simple. Full installation instructions are available in our <a href="url" style="color: #6366f1;">repository</a>.</p>
+
+  <h3>Quick Start</h3>
+
+  <p><strong>1. Install DiscoBench</strong></p>
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>pip install discobench</code></pre>
+
+  <p><strong>2. Create a task</strong></p>
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench.create_task(task_domain="task_domain")</code></pre>
+  <p>This creates a <code>requirements.txt</code> and a full modular codebase.</p>
+
+  <p><strong>3. Evaluate your code</strong></p>
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench.create_task(task_domain="task_domain", test=True)</code></pre>
+  <p>This builds a new codebase for your test environments.</p>
+
+  <h3>Configuration</h3>
+  <p>To control which modules and datasets to use, you can:</p>
+  <ul>
+    <li>Create a <code>task_config</code> following the templates in the repository</li>
+    <li>Build a dictionary with the relevant arguments</li>
+  </ul>
+</div>
+    
+    <h2>Example Tasks</h2>
+
+      We implement a number of tasks from a range of AI research domains in DiscoBench. While these are continuously being iterated on and added to, we include a description of a subset of our tasks, and their modules, below.
+
+    <details>
+      <summary><b>On-Policy RL</b></summary>
+      <p><b>Modules:</b> Optimiser, Loss, Network Architecture, Training Loop</p>
+      <p>Starting from code set up for a standard actor-critic RL training loop, the agent must find algorithms which maximise the return of an RL agent policy. We support different RL environments, such as MinAtar, Brax and Craftax.</p>
+    </details>
+
+    <details>
+      <summary><b>Image Classification</b></summary>
+      <p><b>Modules:</b> Optimiser, Loss, Network Architecture</p>
+      <p>Using code designed for training an image classifier, the agent must find algorithms which maximise the accuracy of image classification. We support a range of different datasets, from MNIST (simple) to CIFAR100.</p>
+        </details>
+
+
+    <details>
+      <summary><b>Machine Unlearning</b></summary>
+      <p><b>Modules:</b> Test Test Test </p>
+      <p>Who said algorithm discovery can't help with AI safety? Unlearning involves trying to train a pre-trained model to maintain certain behaviours, while removing others. The agent must develop algorithms which maximise the desired capabilities while minimised the undesired capabilities or knowledge. This is a multi-objective task, in which the agent is given a bunch of different feedback signals to optimise internally.</p>
+    </details>
+
+    <details>
+      <summary><b>Protein Docking</b></summary>
+      <p><b>Modules:</b></p>
+      <p>What is this task? Want to include it because it's so cool!</p>
+    </details>
+
+    <details>
+      <summary><b>Unsupervised Environment Design</b></summary>
+      <p><b>Modules:</b> Level Sampler, Training Step, Training Loop, Hyperparameter Config</p>
+      <p>Unsupervised Environment Design (UED) involves training an RL actor to be robust to different levels from a particular environment. The LLM agent must develop algorithms to maximise the performance of an RL actor on a held out set of environments.</p>
+    </details>
+
+    <h2>An Example Usage</h2>
+
+    <h1>Something showing the code it made. A streamlit demo (can we embed that)</h1>
+    <h2>Future Work</h2>
+
+  </d-article>
+
+  <d-appendix>
+
+    <h3>Citation</h3>
+    <p>
+    For attribution in academic contexts, please cite this work as
+    </p>
+
+    <pre class="citation short">Goldie et al., "DiscoBench: An Open-Ended Benchmark For Algorithm Discovery", 2025.</pre>
+
+    <p>BibTeX citation</p>
+    <pre class="citation long">
+    @article{goldie2025discobench,
+      title={DiscoBench: An Open-Ended Benchmark For Algorithm Discovery},
+      author={Alexander D. Goldie and Zilin Wang and Adrian Hayler and Deepak Nathani and Edan Toledo and Ken Thampiratwong and Aleksandra Kalisz and Michael Beukman and Alistair Letcher and Shashank Reddy and Clarisse Wibault and Charles O'Neill and Nicholas Roberts and Hannah Erlebach and Uljad Berdica and Jakob N. Foerster and Shimon Whiteson and Roberta Raileanu},
+      year={2025}
+    }
+    </pre>
+
+    <d-bibliography src="dist/bibliography.bib"></d-bibliography>
+  </d-appendix>
+
+</body>
