@@ -107,14 +107,14 @@ d-article li {
 
     <h2>Overview</h2>
 
-    <p>Benchmarks for algorithms discovery are: too easy; not open-ended; don't focus on <i>algorithm</i> transfer; or need full codebases to get started! DiscoBench has a modular setup, a way to measure algorithm transfer, and a huge breadth of tasks! This should enable better research in algorithm discovery, and a much more open-ended landscape for evaluating AI research agents!</p>
+    <p>DiscoBench is a new, completely open-ended benchmark and research playground for automated algorithm discovery and AI Scientist research. DiscoBench has a modular setup, an emphasis on discovering algorithms that transfer, and a huge diversity of tasks! We hope DiscoBench helps drive the frontier of research in algorithm discovery, and provides a much more open-ended landscape for evaluating AI research agents!</p>
     
 
     <h2>
       Introduction
     </h2>
 
-    <p>The goal of AI Scientist systems is to, eventually, automate AI research itself. To be able to do this, we need to be able to <i>measure</i> the ability of AI scientists. While current benchmarks do exist, they are fundamentally limited in a number of ways. DiscoBench is a new benchmark and research environment for algorithm discovery agents which seeks to overcome these difficulties. DiscoBench is designed in a scalable fashion, with the issues of current benchmarks in mind, such that we hope it can remain pertinent for a long time. Below, we explain <i>why</i> DiscoBench is so useful, and some of the tasks that are currently implemented in it; expect these to grow over the next few months!</p>
+    <p>The goal of AI Scientist systems is to, eventually, automate AI research itself. To be able to do this, we need to be able to <i>measure</i> the ability of AI scientists. While current benchmarks exist, they suffer from fundamental limitations, including data contamination, hackable evaluations, and the difficulty of assessing whether agent-discovered methods can generalize to new tasks and domains.  DiscoBench is a new benchmark and research environment which seeks to overcome these shortcomings. DiscoBench is designed in a scalable fashion, with the issues of current benchmarks in mind, such that we hope it can remain pertinent for a long time. Below, we explain <i>why</i> DiscoBench is so useful, and some of the tasks that are currently implemented in it; expect these to grow over the next few months!</p>
 
 
     <h2>The Problem With Current Benchmarks</h2>
@@ -122,28 +122,76 @@ d-article li {
 
 
       <ul>
-      <li><p><b>Close-Ended Problems</b>: Most current algorithm discovery benchmarks (MLEBench, Others etc.) focus on small-scale Kaggle-style problems, wherein problems are very different to cutting-edge research challenges. Ideally, we want a benchmark which does <b>not</b> have a right answer, and there is always space for improvement.</p></li>  
+      <li><p><b>Close-Ended Problems</b>: Many problems for AI research agents have close-ended solutions with "correct" answers, which differ significantly from cutting-edge research challenges. Ideally, we want a benchmark with no single right answer and continuous room for improvement. </p></li>  
 
-      <li><p><b>Poor Evaluation</b>: Like in all machine learning, proper evaluation requires a <i>train-test</i> dataset separation. Most preexisting benchmarks do this on the model-level - i.e., a successful algorithm is one which trains a model to generalise to a test dataset. This misses the correct train-test boundary; we are find algorithms on the meta-scale, and so rather than finding models which transfer to test, we should be measuring the transfer of <b>algorithms</b> to train models in a completely new domain.</p></li>
+      <li><p><b>Poor Evaluation</b>: Like in all machine learning, proper evaluation requires a train-test dataset separation. Most preexisting benchmarks do this on the model-level - i.e., a successful algorithm is one which trains a model to generalise to a test dataset. This misses the correct train-test boundary; we are finding algorithms on the meta-scale, and so rather than learning models which transfer to test data splits, we should be measuring the transfer of <b></b>algorithms</b> to train models in a completely new domain.</p></li>
 
-      <li><p><b>Limited Diversity</b>: Existing benchmarks require manually creating <i>every single</i> problem, which requires a lot of time and results in significant repetition!</p></li>
+      <li><p><b>Limited Diversity</b>: Existing benchmarks require manually creating every single problem, which requires a lot of time and results in significant repetition!</p></li>
 
       <li><p><b>Bias To The Initialisation</b>: Because of how they are implemented, most preexisting benchmarks require initialising a codebase from a fully working, preexisting implementation. Initialising an agent in a local minimum can be very difficult to escape, and limits the creativity that we hope to elicit from AI research agents.</p></li>
+
+      <li><p><b>Data Contamination</b>: It's very hard to accurately measure data contamination of benchmarks, especially when they use machine learning problems that have been publicly released. This problem is particularly prevalent for older Kaggle competitions, where first place solutions are public, or HuggingFace datasets, where an agent could have seen the labels in pretraining data.</p></li>
+
         </ul>
 
-      <h1>Table showing difference between current common benchmarks</h1>
+
+<div style="overflow-x: auto; margin: 20px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+    <thead>
+      <tr style="background-color: #f5f5f5;">
+        <th style="padding: 12px; text-align: left; border: 1px solid #ddd; font-weight: bold;">Benchmark</th>
+        <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Open-Ended</th>
+        <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Algorithm Transfer</th>
+        <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Task Diversity</th>
+        <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Minimal Bias</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 12px; border: 1px solid #ddd; font-weight: 500;">MLEBench</td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+      </tr>
+      <tr style="background-color: #fafafa;">
+        <td style="padding: 12px; border: 1px solid #ddd; font-weight: 500;">SWEBench</td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+      </tr>
+      <tr>
+        <td style="padding: 12px; border: 1px solid #ddd; font-weight: 500;">MLGym Bench</td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"></td>
+      </tr>
+      <tr style="background-color: #e8f4f8;">
+        <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">DiscoBench</td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">✅</td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">✅</td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">✅</td>
+        <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">✅</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
     <h2>What is DiscoBench?</h2>
 
       <p>
-        DiscoBench is a new benchmark and research environment for algorithm discovery in AI. Its main contributions are as follow:
+DiscoBench is a new benchmark and research environment for automated algorithm discovery and science. The focus of DiscoBench is not to provide a suite of tasks where climbing the leaderboard is the goal. We believe it provides a useful foundation where efforts in automated, open-ended scientific research can effectively take place. Its main contributions are as follow:
       </p>
 
       <ul>
-      <li><b>Modular File System</b>: To massively expand task-diversity, we implement each task in a <i>modular</i> fashion. For every ML codebase we use, we identify a series of small <i>modules</i> which we can mark as <i>editable</i> (the LLM is fed an empty file) or <i>fixed</i> (the code uses a prewritten file). For example, in one task the modules could be the <b>network architecture</b>, the <b>loss function</b> and the <b>optimiser</b>. For the cost of implementing a single codebase with $$n$$ modules, we can get $$n!-1$$ different possible tasks - and when a module is <i>editable</i>, we can start the agent off with a near-empty file, so we don't get biased too close to the initialisation!</li>  
+      <li><b>Modular File System</b>: To massively expand task-diversity, we implement each task in a <i>modular</i> fashion. For every ML codebase we use, we identify a series of small <i>modules</i> which we can mark as <i>editable</i> (the LLM is fed an empty file) or <i>fixed</i> (the code uses a prewritten file). For example, in one task the modules could be the <b>network architecture</b>, the <b>loss function</b> and the <b>optimiser</b>. For the cost of implementing a single codebase with $$n$$ modules, we can get $$n!-1$$ different possible tasks... and when a module is <i>editable</i>, we can start the agent off with a near-empty file, so we don't get biased too close to the initialisation!</li>  
       
-      <li><b>Train-Test Split</b>: Our benchmark is implemented with a clear <i>Train-Test</i> distinction. In DiscoBench, we define this split clearly - we evaluate the transferability of the <i>algorithms</i> written by agents, meaning we test how well a learning algorithm generalises for training a completely new model! It turns out, it's really easy to overfit algorithms to specific problems (which isn't that useful when we want to solve AI)!</li>  
+      <li><b>Train-Test Split</b>: Our benchmark is implemented with a clear <i>Train-Test</i> distinction. In DiscoBench, we define this split clearly - we evaluate the transferability of the <i>algorithms</i> written by agents, meaning we test how well an algorithm generalises for training a completely new model on an unseen dataset or RL environment! It turns out, it's really easy to overfit algorithms to specific problems (which isn't that useful when we want to solve AI)! We try to support a broad range of datasets or RL environments, and meta-training/meta-testing can take place on more than one at a time - only adding to the huge diversity of possible tasks above!</li>  
 
-      <li><b>Open-Ended Task Space</b>: In DiscoBench, we focus on up-to-date codebases and unsaturated datasets and environments. Given these represent real research problems, without a "correct" answer, they are inherently open-ended problems that rely on creativity and effective contextual reasoning to maximise performance in.</li>
+      <li><b>Open-Ended Task Space</b>:  In DiscoBench, we focus on up-to-date codebases and unsaturated datasets and environments. Given these represent real research problems, without a "correct" answer, they are inherently open-ended problems that rely on creativity and effective contextual reasoning to maximise performance in. </li>
       </ul>
 
     <h2>A Figure showing something to do with modules</h2>
