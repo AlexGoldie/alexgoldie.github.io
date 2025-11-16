@@ -6005,6 +6005,70 @@ Key innovations:
     
 </div>
 </details>
+
+<div class='group-container'>
+<details>
+
+    <summary style="cursor: pointer; font-weight: bold; font-size: 1.2em; margin-bottom: 10px;">Comparing Claude Code to PPO
+</summary>
+    
+    <div class='message user'>
+       
+        <div class='content markdown'>
+            To compare the algorithm developed by Claude Code with PPO, we provide a breakdown of the evaluation scores below (with standard deviations). First, lets consider the train environments:
+
+<table style="width: 100%; border-collapse: collapse; text-align: center;">
+  <thead>
+    <tr>
+      <th>Environment</th>
+      <th>Claude Code</th>
+      <th>PPO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Breakout</td>
+      <td><b>72.3 ± 23.8</b></td>
+      <td>63.6 ± 26.2</td>
+    </tr>
+    <tr>
+      <td>Freeway</td>
+      <td><b>59.6 ± 15.6</b></td>
+      <td>58.9 ± 15.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>So Claude Code wins (with some confidence overlap) in both meta-training environments. Now let's take a look at the meta-test (heldout) environments:</p>
+
+<table style="width: 100%; border-collapse: collapse; text-align: center;">
+  <thead>
+    <tr>
+      <th>Environment</th>
+      <th>Claude Code</th>
+      <th>PPO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SpaceInvaders</td>
+      <td>177.3 ± 5.0</td>
+      <td><b>180.3 ± 5.6</b></td>
+    </tr>
+    <tr>
+      <td>Asterix</td>
+      <td><b>22.7 ± 13.5</b></td>
+      <td>16.8 ± 12.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>In meta-test, the picture is less clear. Claude Code outperforms PPO in Asterix, but not SpaceInvaders. The value of testing algorithm transfer is clear; it's surprisingly easy to overfit to meta-training environments, as evidenced by Claude's consistent outperformance in meta-train environments. Still, 3/4 environments isn't bad for Claude! </p>
+
+</div>
+    </div>
+    
+</div>
+</details>
     <button class="timeline-toggle floating-btn" id="toggleTimeline" title="Show timeline">📆</button>
     <button class="filter-messages floating-btn" id="filterMessages" title="Search & Filter">🔍</button>
     <button class="toggle-details floating-btn" id="toggleDetails" title="Toggle all details">📋</button>

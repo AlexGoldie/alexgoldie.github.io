@@ -199,7 +199,7 @@ d-article li {
       <td id="T_668cf_row2_col4" class="data row2 col4" >✅</td>
     </tr>
     <tr>
-      <td id="T_668cf_row3_col0" class="data row3 col0" >Minimal Bias</td>
+      <td id="T_668cf_row3_col0" class="data row3 col0" >Unbiased to Initialisation</td>
       <td id="T_668cf_row3_col1" class="data row3 col1" >🟡</td>
       <td id="T_668cf_row3_col2" class="data row3 col2" >✅</td>
       <td id="T_668cf_row3_col3" class="data row3 col3" >❌</td>
@@ -284,8 +284,8 @@ DiscoBench is a new benchmark and research environment for automated algorithm d
 
     <details>
       <summary><b>Protein Docking</b></summary>
-      <p><b>Modules:</b></p>
-      <p>What is this task? Want to include it because it's so cool!</p>
+      <p><b>Modules:</b> Network Architecture, Loss, Optimiser, (more to come(?))</p>
+      <p>Can AI agents build us better protein docking algorithms? What does that even mean? Protein docking is the problem of finding how two biomolecules fit together. Real proteins will try to minimise their <i>energy potentials</i>, and this will determine their fit with other molecules. But modelling these energies well is very hard and expensive. Protein docking is the next best thing, and with algorithms like DiffDock /cite{}, you can model docking with machine learning. In DiscoBench, we want to see if it is possible to discover algorithms that outperform DiffDock for docking proteins and molecules.</p>
     </details>
 
     <details>
@@ -313,7 +313,7 @@ change_train: false</pre>
 
     </p>
 
-  <p>Let's see how Claude Code did:</p>
+  <p>Let's see how Claude Code did. Scroll to the bottom to see how Claude compares to PPO in- and out-of-meta-distribution:</p>
 <iframe 
   src="claude.html" 
   width="100%" 
@@ -321,18 +321,15 @@ change_train: false</pre>
   style="border: none; border-radius: 8px; box-shadow: 0 7px 16px rgba(0,0,0,0.3);"
 >
 </iframe>
-<p></p><p></p><p></p>
-<p> 
-  Pretty good! In 5 attempts, Claude Code has actually found an algorithm which transfers better to our held out environments than the baseline, PPO! </p>
-    
+
   
   <h2>Future Work</h2>
 
     <p>We think DiscoBench has the potential to open up <b>loads</b> of new potential research avenues! While we are continuously adding new tasks, there are already <i>thousands</i> of domain-module-dataset combinations in DiscoBench! Here's a few examples of research ideas we'd love to see arise from using DiscoBench:    
     <ul>
       <li><b>Learning to Research:</b> With DiscoBench, there are now <i>literally thousands</i> of different tasks to collect data from! It would be amazing to see what so much data can be used for in training, following the philosophy of The Era of Experience \cite{}!</li>
-      <li><b>Discovering Completely New Algorithms:</b> As well as giving quantitative measures of performance, DiscoBench is the perfect playground for discovering completely new algorithms and easily testing them on a wide range of datasets and tasks! We'd love to see if DiscoBench can be used to discover the next PPO or CNN!</li>
-      <li><b>Expanding the Task Space:</b> So far, DiscoBench has focused on machine learning algorithm discovery. But in practice, the philosophy of DiscoBench (modular code breakdowns) can be applied anywhere; we've already had our first foray into AI4Science (Protein Docking, Brain Speech Detection), but it would be amazing to see what other <i>real-world problems</i> can be broken down into the DiscoBench formulation!</li>
+      <li><b>Discovering Completely New Algorithms:</b> As well as giving quantitative measures of performance, DiscoBench is the perfect playground for discovering completely new algorithms and easily testing them on a wide range of datasets and tasks. We'd love to see if DiscoBench can be used to discover the next PPO or CNN!</li>
+      <li><b>Expanding the Task Space:</b> So far, DiscoBench has focused on machine learning algorithm discovery. But in practice, the philosophy of DiscoBench (modular code breakdowns) can be applied anywhere; we've already had our first foray into AI4Science (Protein Docking, Brain Speech Detection), but it would be amazing to see what other <i>real-world problems</i> can be broken down into the DiscoBench framework.</li>
       <li><b>Building New Agents:</b> Obviously, DiscoBench provides the perfect place for developing new agent frameworks and scaffolds. The explicit open-endedness of our problem-space opens up the potential for significantly more complex and capable agents which would have saturated current benchmarks!</li>
       
     </ul>
@@ -363,6 +360,35 @@ change_train: false</pre>
     </pre>
 
     <d-bibliography src="dist/bibliography.bib"></d-bibliography>
+
+
+    <h3>References</h3>
+    <p>Era Of Experience<p>
+    </p>
+
+
+    <h3>Contributions</h3>
+    <p style="font-size:x-small"> DiscoBench was a hugely collaborative effort. Below, we discuss the contributions made by each author:
+      <ul style="font-size:x-small">
+        <li>Alexander D. Goldie*: Led the project, designed most of the DiscoBench system, wrote the blog and made the OnPolicyRL task.</li>
+        <li>Zilin Wang†: Helped design system, built ComputerVisionClassification and BrainSpeechDetection tasks.</li>
+        <li>Adrian Hayler†: Helped design system and built LanguageModelPretraining task.</li>
+        <li>Deepak Nathani†: Helped design system and helped structure repository.</li>
+        <li>Edan Toledo†: Helped design system and offered general support, guidance and editing.</li>
+        <li>Ken Thampiratwong†: Helped design system and built diffusion tasks.</li>
+        <li>Aleksandra Kalisz†: Helped design system, built ProteinDocking task and created blog figure.</li>
+        <li>Michael Beukman‡: Contributed UnsupervisedEnvironmentDesign task.</li>
+        <li>Alistair Letcher‡: Contributed ModelUnlearning task.</li>
+        <li>Shashank Reddy‡: Contributed OffPolicyRL task.</li>
+        <li>Clarisse Wibault‡: Contributed BayesianOptimisation task.</li>
+        <li>Jakob N. Foerster: Offered general supervision.</li>
+        <li>Shimon Whiteson: Offered general supervision.</li>
+        <li>Roberta Raileanu: Helped design system and offered general supervision.</li>
+      </ul>
+      <p style="font-size:x-small">* Lead Author </p>
+      <p style="font-size:x-small">† Core Contributor </p>
+      <p style="font-size:x-small">‡ Task Contributor </p>
+    </p>
   </d-appendix>
 
 </body>
