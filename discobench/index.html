@@ -46,15 +46,13 @@ d-article li {
     <script id='distill-front-matter' type="text/json">{
     "title": "DiscoBench",
     "description": "An Open-Ended Benchmark for Automated Algorithm Discovery",
-    "published": "November 6, 2025",
-    "pubUrl": "https://arxiv.org/",
-    "pubVenue": "arXiv",
+    "published": "November 16, 2025",
     "authors": [
       {
         "author":"Alexander D. Goldie",
-        "authorURL":"Alex Goldie Website",
+        "authorURL":"https://alexgoldie.github.io",
         "affiliations": [
-          {"name": "University of Oxford", "url":"https://twitter.com/AlexDGoldie"}]
+          {"name": "University of Oxford"}]
       }
     ],
     "katex": {
@@ -105,8 +103,6 @@ d-article li {
 
   <d-article>
 
-    <h2>Overview</h2>
-
     <p>DiscoBench is a new, completely open-ended benchmark and research playground for automated algorithm discovery and AI Scientist research. DiscoBench has a modular setup, an emphasis on discovering algorithms that transfer, and a huge diversity of tasks! We hope DiscoBench helps drive the frontier of research in algorithm discovery, and provides a much more open-ended landscape for evaluating AI research agents!</p>
     
 
@@ -114,12 +110,13 @@ d-article li {
       Introduction
     </h2>
 
-    <p>The goal of AI Scientist systems is to, eventually, automate AI research itself. To be able to do this, we need to be able to <i>measure</i> the ability of AI scientists. While current benchmarks exist, they suffer from fundamental limitations, including data contamination, hackable evaluations, and the difficulty of assessing whether agent-discovered methods can generalize to new tasks and domains.  DiscoBench is a new benchmark and research environment which seeks to overcome these shortcomings. DiscoBench is designed in a scalable fashion, with the issues of current benchmarks in mind, such that we hope it can remain pertinent for a long time. Below, we explain <i>why</i> DiscoBench is so useful, and some of the tasks that are currently implemented in it; expect these to grow over the next few months!</p>
+    <p>The goal of AI Scientist systems is to, eventually, automate AI research itself. To be able to do this, we need to be able to <i>measure</i> the ability of AI scientists. While current benchmarks exist, they suffer from fundamental limitations, including data contamination, hackable evaluations, and the difficulty of assessing whether agent-discovered methods can generalize to new tasks and domains.</p>
+    <p> DiscoBench is a new benchmark and research environment which seeks to overcome these shortcomings. DiscoBench is designed in a scalable fashion, with the issues of current benchmarks in mind, such that we hope it can remain pertinent for a long time. Below, we explain <i>why</i> DiscoBench is so useful, and some of the tasks that are currently implemented in it; expect these to grow over the next few months!</p>
 
+
+    <h2>DiscoBench Figure!</h2>
 
     <h2>The Problem With Current Benchmarks</h2>
-
-
 
       <ul>
       <li><p><b>Close-Ended Problems</b>: Many problems for AI research agents have close-ended solutions with "correct" answers, which differ significantly from cutting-edge research challenges. Ideally, we want a benchmark with no single right answer and continuous room for improvement. </p></li>  
@@ -231,9 +228,10 @@ DiscoBench is a new benchmark and research environment for automated algorithm d
       <li><b>Train-Test Split</b>: Our benchmark is implemented with a clear <i>Train-Test</i> distinction. In DiscoBench, we define this split clearly - we evaluate the transferability of the <i>algorithms</i> written by agents, meaning we test how well an algorithm generalises for training a completely new model on an unseen dataset or RL environment! It turns out, it's really easy to overfit algorithms to specific problems (which isn't that useful when we want to solve AI)! We try to support a broad range of datasets or RL environments, and meta-training/meta-testing can take place on more than one at a time - only adding to the huge diversity of possible tasks above!</li>  
 
       <li><b>Open-Ended Task Space</b>:  In DiscoBench, we focus on up-to-date codebases and unsaturated datasets and environments. Given these represent real research problems, without a "correct" answer, they are inherently open-ended problems that rely on creativity and effective contextual reasoning to maximise performance in. </li>
+
+      <li><b>Making Contamination Impossible</b>: Because agents in DiscoBench are always evaluated on an explicitly <b>unknown</b> test-set, there is physically no way for the agent to <i>know</i> the optimal solution to a task a-priori. And that ignores the fact that there exists no fully optimal solution to tasks like "reinforcement learning", "image classification" or "language pretraining".</li>
       </ul>
 
-    <h2>A Figure showing something to do with modules</h2>
 
 <div style="max-width: 800px; margin: 0 auto;">
   <h2>Using DiscoBench</h2>
@@ -315,17 +313,34 @@ change_train: false</pre>
 
     </p>
 
-  <p>Let's see how Claude Code did: (here, we should separate out the description it is fed etc.)</p>
+  <p>Let's see how Claude Code did:</p>
 <iframe 
   src="claude.html" 
   width="100%" 
   height="800px" 
-  style="border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"
+  style="border: none; border-radius: 8px; box-shadow: 0 7px 16px rgba(0,0,0,0.3);"
 >
 </iframe>
-    <h2>Future Work</h2>
+<p></p><p></p><p></p>
+<p> 
+  Pretty good! In 5 attempts, Claude Code has actually found an algorithm which transfers better to our held out environments than the baseline, PPO! </p>
+    
+  
+  <h2>Future Work</h2>
 
-    We 
+    <p>We think DiscoBench has the potential to open up <b>loads</b> of new potential research avenues! While we are continuously adding new tasks, there are already <i>thousands</i> of domain-module-dataset combinations in DiscoBench! Here's a few examples of research ideas we'd love to see arise from using DiscoBench:    
+    <ul>
+      <li><b>Learning to Research:</b> With DiscoBench, there are now <i>literally thousands</i> of different tasks to collect data from! It would be amazing to see what so much data can be used for in training, following the philosophy of The Era of Experience \cite{}!</li>
+      <li><b>Discovering Completely New Algorithms:</b> As well as giving quantitative measures of performance, DiscoBench is the perfect playground for discovering completely new algorithms and easily testing them on a wide range of datasets and tasks! We'd love to see if DiscoBench can be used to discover the next PPO or CNN!</li>
+      <li><b>Expanding the Task Space:</b> So far, DiscoBench has focused on machine learning algorithm discovery. But in practice, the philosophy of DiscoBench (modular code breakdowns) can be applied anywhere; we've already had our first foray into AI4Science (Protein Docking, Brain Speech Detection), but it would be amazing to see what other <i>real-world problems</i> can be broken down into the DiscoBench formulation!</li>
+      <li><b>Building New Agents:</b> Obviously, DiscoBench provides the perfect place for developing new agent frameworks and scaffolds. The explicit open-endedness of our problem-space opens up the potential for significantly more complex and capable agents which would have saturated current benchmarks!</li>
+      
+    </ul>
+</p>
+  <h2>Conclusion</h2>
+
+    <p> We really hope you love using DiscoBench, and some really great things can come out of it! Please consider contributing to our Open-Source Library, and if you have any questions please feel free to reach out to the core contributors!
+</p>
 
   </d-article>
 
@@ -342,7 +357,7 @@ change_train: false</pre>
     <pre class="citation long">
     @article{goldie2025discobench,
       title={DiscoBench: An Open-Ended Benchmark For Algorithm Discovery},
-      author={Alexander D. Goldie and Zilin Wang and Adrian Hayler and Deepak Nathani and Edan Toledo and Ken Thampiratwong and Aleksandra Kalisz and Michael Beukman and Alistair Letcher and Shashank Reddy and Clarisse Wibault and Charles O'Neill and Nicholas Roberts and Hannah Erlebach and Uljad Berdica and Jakob N. Foerster and Shimon Whiteson and Roberta Raileanu},
+      author={Alexander D. Goldie and Zilin Wang and Adrian Hayler and Deepak Nathani and Edan Toledo and Ken Thampiratwong and Aleksandra Kalisz and Michael Beukman and Alistair Letcher and Shashank Reddy and Clarisse Wibault and Jakob N. Foerster and Shimon Whiteson and Roberta Raileanu},
       year={2025}
     }
     </pre>
