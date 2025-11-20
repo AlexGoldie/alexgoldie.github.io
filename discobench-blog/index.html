@@ -121,7 +121,7 @@ d-article li {
     <h2>The Problem With Current Benchmarks</h2>
 
       <ul>
-      <li><p><b>Close-Ended Problems</b>: Many existing benchmarks for AI research agents are inherently close-ended, with well-defined “correct” solutions that can be discovered in limited time. This differs significantly from cutting-edge research challenges, which require open-ended search over multiple possible valid solutions, where a single definitive solution may not exist. Ideally, we want a benchmark with continuous room for improvement and which can be easily expanded to new datasets and problems.  </p></li>  
+      <li><p><b>Close-Ended Problems</b>: Many existing benchmarks for AI research agents are inherently close-ended, with well-defined "correct" solutions that can be discovered in limited time. This differs significantly from cutting-edge research challenges, which require open-ended search over multiple possible valid solutions, where a single definitive solution may not exist. Ideally, we want a benchmark with continuous room for improvement and which can be easily expanded to new datasets and problems.  </p></li>  
 
       <li><p><b>Poor Evaluation</b>: Like in all machine learning, proper evaluation requires a train-test dataset separation. Most preexisting benchmarks do this on the model-level - i.e., a successful algorithm is one that trains a model that generalises to a test dataset. This misses the correct train-test boundary. Given we are finding algorithms on the meta-scale, rather than learning models that transfer to test data splits, we should be measuring the transfer of <b> algorithms</b> to train models in a completely new domain.
 </p></li>
@@ -240,7 +240,7 @@ DiscoBench is set up in a modular way, such that you can specify which parts of 
       <li><b>Modular File System</b>: To massively expand task diversity, we implement each task in a modular fashion. For every ML codebase we use, we identify a series of small modules that we can mark as <b>editable</b> (the LLM is fed an empty file) or <b>fixed</b> (the code uses a prewritten file which the LLM can't edit). For example, in one task the modules could be the <i>network architecture</i>, the <i>loss function</i> and the <i>optimiser</i>. For the cost of implementing a single codebase with $$n$$ modules, we can get $$2^n-1$$ possible different tasks! Also, because <b>editable</b> modules start as near-empty files, proposed algorithms are less biased to the initialisation. This also means DiscoBench is not limited to LLMs; other methods, such as symbolic evolution, may also prove effective given the emphasis on discovering algorithms rather than writing boilerplate code.
 </li>  
       
-      <li><b>Open-Ended Task Space</b>:  In DiscoBench, we focus on up-to-date codebases with unsaturated datasets and environments. These represent real research problems, where we can measure the performance of a discovered algorithm but do not know a “perfect” solution. As such, they are inherently open-ended problems that rely on creativity and effective contextual reasoning to maximise performance. 
+      <li><b>Open-Ended Task Space</b>:  In DiscoBench, we focus on up-to-date codebases with unsaturated datasets and environments. These represent real research problems, where we can measure the performance of a discovered algorithm but do not know a "perfect" solution. As such, they are inherently open-ended problems that rely on creativity and effective contextual reasoning to maximise performance. 
  </li>
 
       <li><b>Train-Test Split</b>: Our benchmark is implemented with a clear <i>Train-Test</i> distinction. In DiscoBench, we evaluate the transferability of the <b>algorithms</b> written by agents. In practice, the agent must write algorithms which train models on data. The algorithm is evaluated at meta-test time based on its score when training a new model on an unseen, and unknown, dataset or RL environment. For example, the LLM might receive feedback for algorithms it develops to train classifiers on CIFAR10, and its evaluation score is the performance of classifiers trained with this algorithm on ImageNet. It turns out, it's really easy to overfit algorithms to specific problems, limiting the utility of the discovered algorithms. We try to support a broad range of datasets or RL environments, and meta-training/meta-testing can take place on more than one at a time, meaning the LLM potentially has to balance multiple objectives. This only adds to the huge diversity of possible tasks above!
@@ -266,8 +266,8 @@ DiscoBench is set up in a modular way, such that you can specify which parts of 
   <p>This creates a <code>requirements.txt</code> and a full modular codebase.</p>
 
    <p><strong>3. Edit your config to define modules, the meta-train and meta-test set</strong></p>
-  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench_config[“change_loss”] = True
-	discobench_config[“train_task_id”] = [“MinAtar/Breakout”, “MinAtar/Asterix”]
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench_config["change_loss"] = True
+	discobench_config["train_task_id"] = ["MinAtar/Breakout", "MinAtar/Asterix"]
 </code></pre>
   <p>This creates a <code>requirements.txt</code> and a full modular codebase.</p>
 
