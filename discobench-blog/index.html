@@ -4,7 +4,7 @@
   <title>DiscoBench</title>
   <meta name="description" content="An Open-Ended Benchmark for Automated Algorithm Discovery"/>
   <meta property="og:title" content="DiscoBench"/>
-  <meta property="og:description" content="Web publication for &quot;DiscoBench&quot;" />
+  <meta property="og:description" content="&quot;DiscoBench&quot;: An Open-Ended Benchmark for Automated Algorithm Discovery" />
 
   <script>
     console.log = function() {};
@@ -103,35 +103,34 @@ d-article li {
 
   <d-article>
 
-    <p>DiscoBench is a new, open-ended benchmark and research playground for developing automated algorithm discovery and AI scientist systems. DiscoBench has a modular setup, an emphasis on discovering algorithms that transfer, and a huge diversity of tasks! We hope DiscoBench helps drive the frontier of research in algorithm discovery by providing a large-scale, open-ended landscape for evaluating AI research agents!</p>
+    <p>DiscoBench is a new open-ended framework for developing and evaluating automated algorithm discovery and AI research agent systems. DiscoBench has a modular setup, an emphasis on discovering algorithms that transfer, and a huge diversity of tasks! We hope DiscoBench helps drive the frontier of research in algorithm discovery by providing a large-scale, open-ended landscape for evaluating AI research agents!</p>
     
 
 <figure style="margin: 0;">
   <img src="dist/img/discobench_main.svg" alt="Overview of DiscoBench.">
-  <figcaption>Figure 1: An overview of the DiscoBench system. A user can select a domain from a broad range of different areas of machine learning. After, they can select files form the list of available modules for an AI research agent to edit. We support selecting any combination of modules, from just one to all of them!</figcaption>
+  <figcaption>Figure 1: An overview of the DiscoBench system. A user can select a domain from a broad range of different areas of machine learning. After, they can select files from the list of available modules for an AI research agent to edit. We support selecting any combination of modules, from just one to all of them!</figcaption>
 </figure>
 
     <h2>
       Evaluating AI Scientists
     </h2>
 
-    <p>One goal of AI Scientist systems is to, eventually, automate AI research itself. To do so, we need to be able to measure the ability of AI scientists. While current benchmarks exist, they suffer from fundamental limitations, including data contamination, easily hackable evaluations, and difficulty in assessing whether agent-discovered methods can generalize to new tasks and domains. </p>
-    <p> DiscoBench is a new benchmark and research environment that seeks to overcome these shortcomings. DiscoBench is designed in a scalable fashion, with the issues of current benchmarks in mind. We hope it can remain pertinent for a long time. Below, we explain why DiscoBench is so useful, and some of the tasks that are currently implemented in it; expect these to grow over the next few months!</p>
+    <p>One goal of autonomous algorithm discovery systems is to, eventually, automate AI research itself. To do so, we need to be able to measure the ability of AI research agents. While current benchmarks do exist, they suffer from fundamental limitations, including data contamination, easily hackable evaluations, and difficulty in assessing whether agent-discovered methods can generalize to new tasks and domains.  </p>
 
-    <h2>The Problem With Current Benchmarks</h2>
+    <p>We seek to overcome these shortcomings by designing DiscoBench in a scalable fashion with the issues of current benchmarks in mind; as such, we hope that it can remain pertinent for a long time. Below, we explain some of the flaws with current benchmarks, and demonstrate how DiscoBench is so useful, before discussing <i>some</i> of the tasks that are currently implemented in it; expect these to grow over the next few months!</p>
+
+    <h2>Limitations of Current Benchmarks</h2>
 
       <ul>
-      <li><p><b>Close-Ended Problems</b>: Many existing benchmarks for AI research agents are inherently close-ended, with well-defined "correct" solutions that can be discovered in limited time. This differs significantly from cutting-edge research challenges, which require open-ended search over multiple possible valid solutions, where a single definitive solution may not exist. Ideally, we want a benchmark with continuous room for improvement and which can be easily expanded to new datasets and problems.  </p></li>  
-
-      <li><p><b>Poor Evaluation</b>: Like in all machine learning, proper evaluation requires a train-test dataset separation. Most preexisting benchmarks do this on the model-level - i.e., a successful algorithm is one that trains a model that generalises to a test dataset. This misses the correct train-test boundary. Given we are finding algorithms on the meta-scale, rather than learning models that transfer to test data splits, we should be measuring the transfer of <b> algorithms</b> to train models in a completely new domain.
+      <li><p><b>Poor Evaluation</b>: Like in all machine learning, proper evaluation requires a train-test dataset separation. Most preexisting benchmarks do this on the model-level - i.e., a successful algorithm is one that trains a model that generalises to a test dataset. This misses the correct train-test boundary. Given we are finding algorithms on the meta-scale, we should be measuring the transfer of <b>algorithms</b> to train models in a completely new domain.
 </p></li>
 
-      <li><p><b>Limited Diversity</b>: Existing benchmarks require manually creating every single problem, which is laborious and repetitive. Even when a benchmark consists of many tasks, they frequently focus on one specific domain, at the cost of breadth.
+      <li><p><b>Limited Diversity</b>: Existing benchmarks require manually creating every single problem, which is laborious and repetitive. Even when a benchmark consists of many tasks, they often focus on specific domains at the cost of breadth.
 </p></li>
 
-      <li><p><b>Bias To The Initialisation</b>: Because of how they are implemented, most preexisting benchmarks require initialising a codebase from a fully working, preexisting implementation. In addition to needing a complete initial solution, which is non-trivial for hard problems, agents initialised in a local minimum can have difficulty escaping it, limiting the creativity that we hope to elicit from AI research agents.</p></li>
+      <li><p><b>Bias To The Initialisation</b>: Because of how they are implemented, most preexisting benchmarks require initialising a codebase from a fully working, preexisting implementation. In addition to needing a complete initial solution, which is non-trivial for hard problems, agents initialised in this local minimum can have difficulty escaping it, limiting the creativity that we hope to elicit from AI research agents.</p></li>
 
-      <li><p><b>Data Contamination</b>: It is hard to accurately measure data contamination of benchmarks, especially when they use machine learning problems that have been publicly released. This problem is particularly prevalent for older Kaggle competitions, where first place solutions are public, or HuggingFace datasets, where an agent could have seen the labels in pretraining. In particular, issues often arises because LLM agents are aware of which specific tasks it will be evaluated on.</p></li>
+      <li><p><b>Data Contamination</b>: It is hard to accurately measure data contamination of benchmarks, especially when they use machine learning problems that have been publicly released. This problem is particularly prevalent for older Kaggle competitions, where first place solutions are public, or HuggingFace datasets, where an agent could have seen the labels in pretraining. In particular, issues often arise because LLM agents are aware of which specific tasks it will be evaluated on.</p></li>
 
         </ul>
 
@@ -176,22 +175,17 @@ d-article li {
       <th id="T_668cf_level0_col0" class="col_heading level0 col0" >Criteria</th>
       <th id="T_668cf_level0_col1" class="col_heading level0 col1" >MLEBench</th>
       <th id="T_668cf_level0_col2" class="col_heading level0 col2" >SWEBench</th>
+      <th id="T_668cf_level0_col2" class="col_heading level0 col2" >ASTABench</th>
       <th id="T_668cf_level0_col3" class="col_heading level0 col3" >MLGym Bench</th>
       <th id="T_668cf_level0_col4" class="col_heading level0 col4" >DiscoBench</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_668cf_row0_col0" class="data row0 col0" >Open-Ended</td>
-      <td id="T_668cf_row0_col1" class="data row0 col1" >✅</td>
-      <td id="T_668cf_row0_col2" class="data row0 col2" >❌</td>
-      <td id="T_668cf_row0_col3" class="data row0 col3" >🟡</td>
-      <td id="T_668cf_row0_col4" class="data row0 col4" >✅</td>
-    </tr>
-    <tr>
       <td id="T_668cf_row1_col0" class="data row1 col0" >Algorithm Transfer</td>
       <td id="T_6F68cf_row1_col1" class="data row1 col1" >❌</td>
       <td id="T_668cf_row1_col2" class="data row1 col2" >❌</td>
+      <td id="T_668cf_row1_col3" class="data row1 col3" >❌</td>
       <td id="T_668cf_row1_col3" class="data row1 col3" >❌</td>
       <td id="T_668cf_row1_col4" class="data row1 col4" >✅</td>
     </tr>
@@ -199,12 +193,14 @@ d-article li {
       <td id="T_668cf_row2_col0" class="data row2 col0" >Task Diversity</td>
       <td id="T_668cf_row2_col1" class="data row2 col1" >🟡</td>
       <td id="T_668cf_row2_col2" class="data row2 col2" >🟡</td>
+      <td id="T_668cf_row2_col3" class="data row2 col4" >✅</td>
       <td id="T_668cf_row2_col3" class="data row2 col3" >🟡</td>
       <td id="T_668cf_row2_col4" class="data row2 col4" >✅</td>
     </tr>
     <tr>
       <td id="T_668cf_row3_col0" class="data row3 col0" >Unbiased to Initialisation</td>
       <td id="T_668cf_row3_col1" class="data row3 col1" >🟡</td>
+      <td id="T_668cf_row3_col2" class="data row3 col2" >✅</td>
       <td id="T_668cf_row3_col2" class="data row3 col2" >✅</td>
       <td id="T_668cf_row3_col3" class="data row3 col3" >❌</td>
       <td id="T_668cf_row3_col4" class="data row3 col4" >✅</td>
@@ -213,6 +209,7 @@ d-article li {
       <td id="T_668cf_row4_col0" class="data row4 col0" >Contamination Resistant</td>
       <td id="T_668cf_row4_col1" class="data row4 col1" >❌</td>
       <td id="T_668cf_row4_col2" class="data row4 col2" >❌</td>
+      <td id="T_668cf_row4_col3" class="data row4 col3" >🟡</td>
       <td id="T_668cf_row4_col3" class="data row4 col3" >🟡</td>
       <td id="T_668cf_row4_col4" class="data row4 col4" >✅</td>
     </tr>
@@ -223,112 +220,138 @@ d-article li {
     <h2>What is DiscoBench?</h2>
 
       <p>
-DiscoBench is a new benchmark and research environment for automated algorithm discovery and AI research agents. As well as providing a number of problems with which to measure an agent's performance for AI research, we also believe it provides a useful foundation where efforts in automated, open-ended scientific research can effectively take place. 
+DiscoBench is a new framework and benchmark for automated algorithm discovery and AI research agents. As well as providing a number of problems with which to measure an agent's performance for AI research, we believe it provides a useful foundation where efforts in automated, open-ended scientific research can effectively take place. 
       </p>
 
       <p>
-DiscoBench is set up in a modular way, such that you can specify which parts of a codebase an LLM edits; this enables unparalleled task diversity compared to other benchmarks in this space. We also differ from other benchmarks in how we define evaluation; rather than the scores being defined as a model's performance on a held-out test set, we emphasise meta-test evaluation. This means we test the performance of algorithms on held-out datasets or environments, without telling the LLM a-priori what it will be evaluated on.
-      </p>
+DiscoBench is set up in a modular way, such that you can specify which parts of a codebase an LLM edits; this enables unparalleled task diversity compared to other benchmarks in this space. We also differ from other benchmarks in how we define evaluation, with emphasis on <b>meta</b>-test evaluation. This means we test the performance of algorithms on held-out datasets or environments, without telling the LLM what it will be evaluated on a-priori. And DiscoBench is very diverse; we offer tasks from different applied and foundational disciplines and support a broad range of public datasets and RL environments.      </p>
 
 
 <figure >
   <img src="dist/img/discobench_task.svg" alt="A demonstration of a typical DiscoBench setup.">
-  <figcaption>Figure 2: A visualisation of a typical DiscoBench setup. An agent will develop algoriths to train models on a set of <i>meta-train</i> datasets, making refinements based on the model's evaluation score. After a final algorithm is developed, it is used to train models on a held-out <i>meta-test</i> dataset, which is is unknown to the agent. The models are evaluate to get a final performance metric.</figcaption>
+  <figcaption>Figure 2: A visualisation of a typical DiscoBench setup. An agent will develop algorithms to train models on a set of <i>meta-train</i> datasets, making refinements based on the model's evaluation score. After a final algorithm is developed, it is used to train models on a held-out <i>meta-test</i> dataset, which is is unknown to the agent. The models are evaluated to get a final performance metric.</figcaption>
 </figure>
-
+Here are some of the main features of DiscoBench:
       <ul>
-      <li><b>Modular File System</b>: To massively expand task diversity, we implement each task in a modular fashion. For every ML codebase we use, we identify a series of small modules that we can mark as <b>editable</b> (the LLM is fed an empty file) or <b>fixed</b> (the code uses a prewritten file which the LLM can't edit). For example, in one task the modules could be the <i>network architecture</i>, the <i>loss function</i> and the <i>optimiser</i>. For the cost of implementing a single codebase with $$n$$ modules, we can get $$2^n-1$$ possible different tasks! Also, because <b>editable</b> modules start as near-empty files, proposed algorithms are less biased to the initialisation. This also means DiscoBench is not limited to LLMs; other methods, such as symbolic evolution, may also prove effective given the emphasis on discovering algorithms rather than writing boilerplate code.
+      <li><b>Modular File System</b>: To massively expand task diversity, we implement each task in a modular fashion. For every ML codebase we use, we identify a series of small modules that we can mark as <i>editable</i> (the LLM is fed just the interface it must match) or <i>fixed</i> (the code uses a prewritten file which the LLM can't edit). For example, in one task the modules could be the <b>network architecture</b>, the <b>loss function</b> and the <b>optimiser</b>. This means for the cost of implementing a single codebase with n modules, we can get $$2^n-1$$ possible different tasks from each combination of editable and fixed! Also, when a module is editable, we can start the agent off with a near-empty file, so we don't get biased too close to the initialisation. Lastly, because of this, DiscoBench is not limited to LLMs; other methods, such as symbolic evolution, may also prove effective given the emphasis is only on discovering algorithms, rather than need to also write significant boilerplate code.
+
 </li>  
       
-      <li><b>Open-Ended Task Space</b>:  In DiscoBench, we focus on up-to-date codebases with unsaturated datasets and environments. These represent real research problems, where we can measure the performance of a discovered algorithm but do not know a "perfect" solution. As such, they are inherently open-ended problems that rely on creativity and effective contextual reasoning to maximise performance. 
+      <li><b>Open-Ended Task Space</b>:  In DiscoBench, we focus on up-to-date codebases with unsaturated datasets and environments. These represent active research problems in which we can measure the performance of a discovered algorithm but do not yet know a “perfect” solution. As such, they are inherently open-ended problems that rely on creativity and effective contextual reasoning to maximise performance.
  </li>
 
-      <li><b>Train-Test Split</b>: Our benchmark is implemented with a clear <i>Train-Test</i> distinction. In DiscoBench, we evaluate the transferability of the <b>algorithms</b> written by agents. In practice, the agent must write algorithms which train models on data. The algorithm is evaluated at meta-test time based on its score when training a new model on an unseen, and unknown, dataset or RL environment. For example, the LLM might receive feedback for algorithms it develops to train classifiers on CIFAR10, and its evaluation score is the performance of classifiers trained with this algorithm on ImageNet. It turns out, it's really easy to overfit algorithms to specific problems, limiting the utility of the discovered algorithms. We try to support a broad range of datasets or RL environments, and meta-training/meta-testing can take place on more than one at a time, meaning the LLM potentially has to balance multiple objectives. This only adds to the huge diversity of possible tasks above!
+      <li><b>Meta-Train/Meta-Test Split</b>: DiscoBench is implemented with the ability to define a clear <i>Meta-Train/Meta-Test</i> split. In DiscoBench, we focus on the transferability of the <b>algorithms</b> written by agents. In practice, the agent must write algorithms which train models on data. The algorithm is evaluated at meta-test time based on its score when training a new model on an unseen, and unknown, dataset or RL environment. For example, the LLM might receive feedback for algorithms it develops to train classifiers on CIFAR10, and its evaluation score is the performance of classifiers trained with this algorithm on ImageNet. It turns out, it's really easy to overfit algorithms to specific problems, limiting the utility of the discovered algorithms. We try to support a broad range of datasets or RL environments, and meta-training/meta-testing can take place on more than one at a time, meaning the LLM potentially has to balance multiple objectives. This only adds to the huge diversity of possible tasks above!
 </li>  
 
 
-      <li><b>Broad Task Coverage</b>: We implement tasks from a range of AI disciplines, with coverage from reinforcement learning to image classification to speech detection from brain signals. Within most tasks, we also offer datasets and environments which can be run on different levels of hardware. In addition to providing different levels of difficulty and complexity for research agents to solve, this also means DiscoBench can be used in both small-scale academic experiments and larger-scale industry development. DiscoBench is also in continuous development, with a planned set of tasks to be added over the coming week - though we are always open to more suggestions/open-source contributions.</li>
+      <li><b>Broad Task Coverage</b>: We implement tasks from a range of AI disciplines, with coverage from reinforcement learning to image classification to speech detection from brain signals. Within most tasks, we also offer datasets and environments which can be run on different levels of hardware. In addition to providing different levels of difficulty and complexity for research agents to solve, this also means DiscoBench can be used in both small-scale academic experiments and larger-scale industry development. </li>
       </ul>
 
+      <p>DiscoBench is in continuous development, with a planned set of tasks and an expanded suite of features to be added over the coming week! We are also always open to more suggestions/open-source contributions.</p>
 
-<div style="max-width: 800px; margin: 0 auto;">
   <h2>Using DiscoBench</h2>
   
-  <p>Getting started with DiscoBench is simple. Full installation instructions are available in our <a href="https://github.com/AlexGoldie/discobench" style="color: #6366f1;">repository</a>.</p>
+  <p>Getting started with DiscoBench is simple. Full installation instructions are available in our <a href="https://github.com/AlexGoldie/discobench" style="color: #6366f1;">docs</a>, as well as information about how to define your own DiscoBench configs.</p>
+
+  <p>We also support interacting with DiscoBench through the DiscoBench cli!
+  </p>
 
   <h3>Quick Start</h3>
 
   <p><strong>1. Install DiscoBench</strong></p>
   <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>pip install discobench</code></pre>
 
-  <p><strong>2. Create a base config for editing</strong></p>
-  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench_config = discobench.create_config(task_domain="task_domain")</code></pre>
-  <p>This creates a <code>requirements.txt</code> and a full modular codebase.</p>
-
-   <p><strong>3. Edit your config to define modules, the meta-train and meta-test set</strong></p>
-  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench_config["change_loss"] = True
-	discobench_config["train_task_id"] = ["MinAtar/Breakout", "MinAtar/Asterix"]
-</code></pre>
-  <p>This creates a <code>requirements.txt</code> and a full modular codebase.</p>
-
-
-     <p><strong>3. Create a task</strong></p>
-  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench.create_task(task_domain="task_domain", config_dict = discobench_config)
+  <p><strong>2. Select a task domain and build an example task</strong></p>
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench.create_task(task_domain="task_domain", example=True)
 </code></pre>
   <p>This creates a <code>requirements.txt</code> and a full modular codebase. It also creates <code>description.md</code>, which explains the task for your agent. This includes descriptions of the task domain, a description of the purpose of any modules, and explanations of all meta-train datasets.
 </p>
 
-  <p><strong>3. Evaluate your code</strong></p>
-  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench.create_task(task_domain="task_domain", config_dict = discobench_config, test=True)
+   <p><strong>3. Evaluate the algorithms</strong></p>
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench.create_task(task_domain="task_domain", example=True, test=True)
 </code></pre>
-  <p>This builds a new codebase for your test environments. You can conveniently call <code>python run_main.py</code> to run training and evaluation on all test environments.
+  <p>This builds a new codebase for your test environments. You can conveniently call <code>python run_main.py</code> to run training with the discovered algorithms on all meta-test environments.
 </p>
+
+<p>To ensure the LLM hasn't cheated its evaluation, creating a test task will overwrite all files <i>except</i> the discovered modules. This means an agent can't, for instance, replace its evaluation accuracy with 100%!<d-cite key="nathani2025mlgymnewframeworkbenchmark"></p>
+
+<h4>
+Task Domains
+</h4>
+
+<p>
+  Task domains are the high level areas which we have implemented full modular codebases for; things like OnPolicyRL and ComputerVisionClassification. For a full list and descriptions of each domain, use:
+</p>
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench.utils.get_domains()
+</code></pre>
+
+<h4>
+Modules</h4>
+
+<p>
+Modules are the components of each codebase which we can mark as editable or fixed for the LLM. We prevent cheating by overriding all non-editable files when we create a test task. To see what modules are implemented for each domain, use:
+</p>
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench.utils.get_modules()
+</code></pre>
+
+
+<h4>
+Configuration</h4>
+
+<p>
+To control which modules and datasets to use, the easiest way is to edit a base config dictionary. This can be obtained using:
+</p>
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>config_dict = discobench.utils.get_config(task_domain=”task_domain”)
+</code></pre>
+<p> Afterwards, you can feed your updated config to create a task:</p>
+  <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>discobench.create_task(task_domain="task_domain", config_dict=config_dict)
+</code></pre>
 
     <h2>Example Tasks</h2>
 
-    <p>We implement a number of tasks from a range of AI research domains in DiscoBench. While these are continuously being iterated on and added to, we include a description of a subset of our tasks, and their modules, below.</p>
+    <p>We implement a number of tasks from a range of AI research domains in DiscoBench. While these are continuously being iterated on and added to, we include a description of a few of our tasks, and their modules, below.</p>
 
     <details>
       <summary><b>On-Policy RL</b></summary>
       <p><b>Modules:</b> Optimiser, Loss, Network Architecture, Training Loop</p>
-      <p>Starting from code set up for a standard actor-critic RL training loop, the agent must find algorithms which maximise the return of an RL agent policy. We support different RL environments, such as MinAtar, Brax and Craftax.</p>
+      <p>Starting from <a href="https://github.com/luchris429/purejaxrl">code</a> set up for a standard actor-critic RL training loop, the agent must find algorithms which maximise the return of an RL agent policy. We support different RL environments from <a href="https://github.com/RobertTLange/gymnax">MinAtar</a>, <a href="https://github.com/google/brax">Brax</a> and <a href="https://github.com/MichaelTMatthews/Craftax">Craftax</a>.</p>
     </details>
 
     <details>
       <summary><b>Image Classification</b></summary>
       <p><b>Modules:</b> Optimiser, Loss, Network Architecture, Data Preprocessing</p>
-      <p>Using code designed for training an image classifier, the agent must find algorithms which maximise the accuracy of image classification. We support a range of different datasets, from MNIST (simple) to CIFAR100.</p>
+      <p>Using <a href="https://github.com/facebookresearch/MLGym/tree/main/data/imageClassificationCifar10">code</a> designed for training an image classifier, the agent must find algorithms which maximise the accuracy of image classification. We support a range of different datasets, from <a href="https://huggingface.co/datasets/ylecun/mnist">MNIST</a> (simple) to <a href="https://huggingface.co/datasets/uoft-cs/cifar100">CIFAR100</a>.</p>
         </details>
 
 
     <details>
       <summary><b>Model Unlearning</b></summary>
       <p><b>Modules:</b> Loss </p>
-      <p>Model unlearning involves trying to train a pre-trained model to maintain certain behaviours, while removing others. The agent must develop algorithms which maximise the desired capabilities while minimised the undesired capabilities or knowledge. This is a multi-objective task, in which the agent is given a bunch of different feedback signals to optimise internally.</p>
+      <p><a href="https://github.com/locuslab/open-unlearning">Unlearning</a> involves trying to train a pre-trained model to maintain certain behaviours, while removing others, and is very important in AI safety! The agent must develop algorithms which maximise the desired capabilities while minimising the undesired capabilities or knowledge. This is a multi-objective task, in which the agent is given many different feedback signals to optimise internally.</p>
     </details>
 
     <details>
       <summary><b>Brain Speed Detection</b></summary>
       <p><b>Modules:</b> Network Architecture, Loss, Optimiser </p>
-      <p>Research suggests we can detect speech from MEG signals (magnetic fields produced by electrical currents) produced in the brain! The agent must develop algorithms for detecting whether the brain is processing speech or silence for a number of different novels Sherlock Holmes novels.</p>
+      <p><a href="https://neural-processing-lab.github.io/2025-libribrain-competition/">Research</a> suggests we can detect speech from MEG signals (magnetic fields produced by electrical currents) produced in the brain! The agent must develop algorithms for detecting whether the brain is processing speech or silence for a number of different novels Sherlock Holmes novels.</p>
     </details>
 
     <details>
       <summary><b>Unsupervised Environment Design</b></summary>
       <p><b>Modules:</b> Level Sampler, Training Step, Training Loop, Hyperparameter Config</p>
-      <p>Unsupervised Environment Design (UED) involves training an RL actor to be robust to different levels from a particular environment. The LLM agent must develop algorithms to maximise the performance of an RL actor on a held out set of environments.</p>
+      <p>Unsupervised Environment Design (UED) involves training an RL actor to be robust to different levels from a particular environment. The LLM agent must develop algorithms to maximise the performance of an RL actor on a <a href="https://github.com/FlairOx/Kinetix">held out set of environments</a>.</p>
     </details>
 
     <h2>An Example Usage</h2>
 
-    <p>Below, we provide a (slightly abridged) example usage of DiscoBench. Here, we work with Claude Code \cite{} to design a new loss function for On-Policy RL. Claude Code receives feedback from its training environments: MinAtar Breakout and MinAtar Freeway. After Claude Code has developed its new loss functions and run its own experiments for 5 different algorithms, we test its chosen algorithm's performance on a held-out test set: MinAtar SpaceInvaders and MinAtar Asterix.</p>
+    <p>Below, we provide a (slightly abridged) example usage of DiscoBench. Here, we work with Claude Code to design a new loss function for On-Policy RL. Claude Code receives feedback from its training environments: MinAtar Breakout and MinAtar Freeway. After Claude Code has developed its new loss functions and run its own experiments for 5 different algorithms, we test its chosen algorithm's performance on a held-out test set: MinAtar SpaceInvaders and MinAtar Asterix.</p>
 
     <p>In DiscoBench, such a process is simple; all we have to do is create a task_config which reflects what we want. The following config example completely defines the task for Claude Code! Automatically, we build all of the files, requirements and task description; the only for the agent designed to add is a prompt! Easy!
 <pre style="background: #f5f5f5; border-radius: 5px; overflow-x: auto; padding: 1em;">
 train_task_id: [MinAtar/Breakout, MinAtar/Freeway]
 test_task_id: [MinAtar/SpaceInvaders, MinAtar/Asterix]
 
-source_path: task_src
+source_path: task_src/OnPolicyRL
 template_backend: default
 
 change_optim: false
@@ -352,17 +375,40 @@ change_train: false</pre>
 
     <p>We think DiscoBench has the potential to open up <b>loads</b> of new potential research avenues! While we are continuously adding new tasks, there are already <i>thousands</i> of domain-module-dataset combinations in DiscoBench! Here's a few examples of research ideas we'd love to see arise from using DiscoBench:    
     <ul>
-      <li><b>Learning to Research:</b> With DiscoBench, there are now <i>literally thousands</i> of different tasks to collect data from! It would be amazing to see what so much data can be used for in training, following the philosophy of The Era of Experience \cite{}!</li>
-      <li><b>Discovering Completely New Algorithms:</b> As well as giving quantitative measures of performance, DiscoBench is the perfect playground for discovering completely new algorithms and easily testing them on a wide range of datasets and tasks. We'd love to see if DiscoBench can be used to discover the next PPO or CNN!</li>
-      <li><b>Expanding the Task Space:</b> So far, DiscoBench has focused on machine learning algorithm discovery. But in practice, the philosophy of DiscoBench (modular code breakdowns) can be applied anywhere; we've already had our first foray into AI4Science (Protein Docking, Brain Speech Detection), but it would be amazing to see what other <i>real-world problems</i> can be broken down into the DiscoBench framework.</li>
-      <li><b>Building New Agents:</b> Obviously, DiscoBench provides the perfect place for developing new agent frameworks and scaffolds. The explicit open-endedness of our problem-space opens up the potential for significantly more complex and capable agents which would have saturated current benchmarks!</li>
+      <li><b>Learning to Research:</b> With DiscoBench, there are <i>literally thousands</i> of different tasks to collect data from! It would be amazing to see what so much data can be used for in training!</li>
+      <li><b>Discovering Completely New Algorithms:</b> As well as giving quantitative measures of performance, DiscoBench is the perfect playground for discovering new algorithms and easily testing them on a wide range of datasets and tasks. We'd love to see if DiscoBench could be used to discover the next PPO or CNN!</li>
+      <li><b>Expanding the Task Space:</b> So far, DiscoBench has focused on machine learning algorithm discovery. However, in practice, the philosophy of DiscoBench (modular code breakdowns) can be applied anywhere; we've already had our first foray into AI4Science (e.g., Brain Speech Detection, GreenhouseGasPrediction), with more on the way, but it would be amazing to see what other <i>real-world problems</i> can be broken down into the DiscoBench framework.</li>
+      <li><b>Building New Agents:</b>  DiscoBench provides the perfect place for developing new agent architectures and scaffolds. The explicit open-endedness of our problem-space opens up the potential for significantly more complex and capable agents which would have saturated current benchmarks!</li>
       
     </ul>
 </p>
   <h2>Conclusion</h2>
 
-    <p> We really hope you love using DiscoBench, and some really great things can come out of it! Please consider contributing to our Open-Source Library, and if you have any questions please feel free to reach out to the core contributors!
+    <p> We really hope you love using DiscoBench, and some really great things can come out of it! Please consider contributing to our Open-Source task, and if you have any questions please feel free to reach out to the core contributors!
 </p>
+
+<h2>Related Work</h2>
+
+Our work is related to a bunch of other amazing research! In particular, in this blog we discuss:
+<p>
+  <a href="https://arxiv.org/abs/2410.07095">MLE-Bench: Evaluating Machine Learning Agents on Machine Learning Engineering</a>
+</p> 
+
+<p>
+  <a href="https://arxiv.org/abs/2502.14499">MLGym: A New Framework and Benchmark for Advancing AI Research Agents</a>
+</p> 
+
+<p>
+  <a href="https://allenai.org/asta/bench">AstaBench: Rigorous Benchmarking of AI Agents With A Scientific Research Suite</a>
+</p> 
+
+<p>
+  <a href="https://github.com/SWE-bench/SWE-bench">SWE-Bench Multimodal: Do AI Systems Generalize to Visual Software Domains?</a>
+</p> 
+
+<p>
+  <a href="https://www.claude.com/product/claude-code">Claude Code</a>
+</p> 
 
   </d-article>
 
@@ -379,12 +425,11 @@ change_train: false</pre>
     <pre class="citation long">
     @article{goldie2025discobench,
       title={DiscoBench: An Open-Ended Benchmark For Algorithm Discovery},
-      author={Alexander D. Goldie and Zilin Wang and Adrian Hayler and Deepak Nathani and Edan Toledo and Ken Thampiratwong and Aleksandra Kalisz and Michael Beukman and Alistair Letcher and Shashank Reddy and Clarisse Wibault and Jakob N. Foerster and Shimon Whiteson and Roberta Raileanu},
+      author={Alexander D. Goldie and Zilin Wang and Adrian Hayler and Deepak Nathani and Edan Toledo and Ken Thampiratwong and Aleksandra Kalisz and Michael Beukman and Alistair Letcher and Shashank Reddy and Clarisse Wibault and Theo Wolf and Charles O'Neill and Jakob N. Foerster and Shimon Whiteson and Roberta Raileanu},
       year={2025}
     }
     </pre>
 
-    <d-bibliography src="dist/bibliography.bib"></d-bibliography>
 
     <h3>Contributions</h3>
     <p style="font-size:x-small"> DiscoBench was a hugely collaborative effort. Below, we discuss the contributions made by each author:
@@ -394,15 +439,17 @@ change_train: false</pre>
         <li>Adrian Hayler†: Helped design system and built LanguageModelPretraining task.</li>
         <li>Deepak Nathani†: Helped design system and helped structure repository.</li>
         <li>Edan Toledo†: Helped design system and offered general support, guidance and editing.</li>
-        <li>Ken Thampiratwong†: Helped design system and built diffusion tasks.</li>
-        <li>Aleksandra Kalisz†: Helped design system, built ProteinDocking task and created blog figure.</li>
+        <li>Ken Thampiratwong†: Helped design system.</li>
+        <li>Aleksandra Kalisz†: Helped design system and created blog figures.</li>
         <li>Michael Beukman‡: Contributed UnsupervisedEnvironmentDesign task.</li>
         <li>Alistair Letcher‡: Contributed ModelUnlearning task.</li>
         <li>Shashank Reddy‡: Contributed OffPolicyRL task.</li>
         <li>Clarisse Wibault‡: Contributed BayesianOptimisation task.</li>
+        <li>Theo Wolf‡: Contributed GreenhouseGasPrediction task.</li>
+        <li>Charles O'Neill‡: Contributed ContinualLearning task.</li>
         <li>Jakob N. Foerster: Offered general supervision.</li>
         <li>Shimon Whiteson: Offered general supervision.</li>
-        <li>Roberta Raileanu: Helped design system and supervised through early stage of the project.</li>
+        <li>Roberta Raileanu: Helped design system and supervised early stages of the project.</li>
       </ul>
       <p style="font-size:x-small">* Lead Author </p>
       <p style="font-size:x-small">† Core Contributor </p>
