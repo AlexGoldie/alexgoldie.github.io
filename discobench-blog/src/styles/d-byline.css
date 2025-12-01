@@ -32,13 +32,13 @@ d-byline .byline {
 
 @media(min-width: 768px) {
   d-byline .byline {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 d-byline .authors-affiliations {
   grid-column-end: span 2;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   margin-bottom: 1em;
 }
 
@@ -77,5 +77,5 @@ d-byline p.author {
 }
 
 d-byline .affiliations {
-
+display: none
 }
