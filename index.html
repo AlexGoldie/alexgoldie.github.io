@@ -1,269 +1,334 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+  <meta charset="UTF-8">
+  <title>Alexander D. Goldie</title>
+  <meta name="author" content="Alexander D. Goldie">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #1c2024;
+      --muted: #667085;
+      --line: #e6e8eb;
+      --accent: #1a56db;
+      --pill-bg: #eef2ff;
+      --pill-ink: #29379b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    <title>Alexander D. Goldie</title>
+    header.hero {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      margin-bottom: 56px;
+    }
+    header.hero .text { flex: 1; min-width: 0; }
+    header.hero img {
+      width: 148px;
+      height: 148px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      margin: 0 0 4px;
+      letter-spacing: -0.01em;
+    }
+    .role {
+      color: var(--muted);
+      font-size: 15px;
+      margin: 0 0 18px;
+    }
+    header.hero p { margin: 0 0 12px; font-size: 15.5px; }
+    .links {
+      margin-top: 16px;
+      font-size: 14.5px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 0;
+    }
+    .links a { color: var(--ink); font-weight: 600; }
+    .links a:hover { color: var(--accent); }
+    .links span { color: var(--line); margin: 0 10px; }
 
-    <meta name="author" content="Alexander D. Goldie">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
-    
-  </head>
+    section { margin-bottom: 52px; }
+    h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
 
-  <body>
-    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-      <tr style="padding:0px">
-        <td style="padding:0px">
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr style="padding:0px">
-              <td style="padding:2.5%;width:63%;vertical-align:middle">
-                <p class="name" style="text-align: left;">
-                 <b> Alexander D. Goldie</b>
-                </p>
-                <p>
-                </p>
-                <p style="font-size:16px;">
-                    I am a PhD student at the University of Oxford, under the supervision of Jakob Foerster and Shimon Whiteson. My research focuses on (meta-)reinforcement learning, automated algorithm discovery, and autonomous research and discovery.
-                  </p>
+    /* News */
+    ul.news { list-style: none; margin: 0; padding: 0; }
+    ul.news li {
+      display: flex;
+      gap: 18px;
+      padding: 9px 0;
+      font-size: 14.5px;
+      border-bottom: 1px solid #f2f3f5;
+    }
+    ul.news li:last-child { border-bottom: none; }
+    ul.news .date {
+      flex-shrink: 0;
+      width: 78px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    details.more-news { margin-top: 2px; }
+    details.more-news summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 13.5px;
+      color: var(--accent);
+      padding: 10px 0 2px;
+    }
+    details.more-news summary::-webkit-details-marker { display: none; }
+    details.more-news summary::before { content: "+ "; }
+    details.more-news[open] summary::before { content: "\2013 "; }
+    details.more-news ul.news { margin-top: 2px; }
 
-                <p style="font-size:16px;">
-                  I am currently a research intern at Meta supervised by Yoram Bachrach, on the AI Research Agents team! Before that, I was a Research Scientist Intern at <a href="https://wayve.ai/">Wayve</a>, where I worked on offline reinforcement learning for autonomous driving. My PhD is offered by <a href="https://aims.robots.ox.ac.uk/">AIMS</a>, a competitive PhD-level course for Machine Learning.
-                </p>
-                <p style="text-align:center">
+    /* Publications - mine */
+    .pub {
+      display: flex;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .pub:last-child { border-bottom: none; }
+    .pub img {
+      width: 160px;
+      height: auto;
+      border-radius: 8px;
+      flex-shrink: 0;
+      background: #f5f5f5;
+      align-self: center;
+    }
+    .pub .body { min-width: 0; }
+    .pub h3 { font-size: 16px; margin: 0 0 6px; line-height: 1.35; }
+    .pub h3 a { color: var(--ink); }
+    .pub h3 a:hover { color: var(--accent); }
+    .pub .authors { color: var(--muted); font-size: 13.5px; margin: 0 0 8px; }
+    .pub .venue {
+      display: inline-block;
+      background: var(--pill-bg);
+      color: var(--pill-ink);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 100px;
+      margin-bottom: 9px;
+    }
+    .pub .note { color: var(--muted); font-size: 12.5px; font-style: italic; margin: -4px 0 9px; }
+    .pub .plinks { font-size: 13.5px; }
+    .pub .plinks a { margin-right: 14px; }
 
-                  <a href="mailto:goldie@robots.ox.ac.uk">Email</a> &nbsp;/&nbsp;
-                  <a href="data/GOLDIE_CV.pdf">CV</a> &nbsp;/&nbsp;
-                  <a href="https://scholar.google.com/citations?user=wogOjBsAAAAJ&hl=en">Scholar</a> &nbsp;/&nbsp;
-                  <a href="https://twitter.com/alexdgoldie">Twitter</a> &nbsp;/&nbsp;
-                  <a href="https://github.com/alexgoldie/">Github</a> &nbsp;/&nbsp;
-                  <a href="https://linkedin.com/in/alex-goldie-ml/">LinkedIn</a>
-                </p>
-              </td>
-              <td style="padding:2.5%;width:37%;max-width:37%">
-                <a href="images/AlexGoldie.jpeg"><img style="width:100%;max-width:100%;" alt="profile photo" src="images/AlexGoldie.jpeg" class="hoverZoomLink"></a>
-              </td>
-            </tr>
-          </tbody></table>
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-              <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>News</h2>
-                <ul>
-                  <li>(08/26) I was invited to a <a href="https://www.linkedin.com/posts/mlindauer_over-the-last-three-days-we-luh-ai-and-ugcPost-7493399394701000704-w9Yf/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAACqyUwEBMmH1j65bjd1ThnDGMHmRysqjPKc">workshop</a> on Real-World RL, at the University of Hannover. I gave two presentations (a vision talk and a technical talk). It was an amazing experience, and I met many researchers I've always looked up to!!</li>
-                  <li>(07/26) I co-organised and co-hosted an event with Inherent Labs, on behalf of BOLD, at ICML in Korea.</li>
-                  <li>(06/26) I started my Research Scientist Internship at Meta!</li>
-                  <li>(06/26) I was invited to speak about DiscoGen at the first <a href="https://www.algorithmdiscovery.org/">AIDDA Conference</a>.</li>
-                  <li>(05/26) <a href="https://arxiv.org/pdf/2603.17863">DiscoGen</a> was accepted to ICML 2026!</li>
-                  <li>(05/26) I was awarded Gold Reviewer at ICML 2026.</li>
-                  <li>(04/26) I won a grant worth $240k from OpenPhilanthropy, on behalf of the lab, for scaling faithfulness in chain-of-thought reasoning.</li>
-                  <li>(03/26) I gave an invited talk about DiscoGen at Cambridge University (CaMLSys Lab).</li>
-                  <li>(02/26) I gave the inaugural Cruickshank Lecture about DiscoGen at <a href="https://inherentlabs.ai/">Inherent Labs</a>.</li>
-                  <li>(12/25) We released a blog for the initial version of <a href="https://alexgoldie.github.io/discobench-blog/">DiscoBench</a> (a precursor to DiscoGen).</li>
-                  <li>(11/25) My internship at <a href="https://wayve.ai/">Wayve</a> finished. During my internship, for a while, I developed the main model which was driving the Wayve car!</li>
-                  <li>(08/25) I was invited to talk on <a href="https://open.spotify.com/episode/79pRNQiWM86ACo0XqeI1Vz?si=7d89c909852844df">two</a> <a href="https://open.spotify.com/episode/1LfvXdNbHUSs8P3jL5MUVS?si=36a06d2f390a425f">episodes</a> of TalkRL.</li>
-                  <li>(08/25) <a href="https://arxiv.org/pdf/2507.17668">My paper</a> was awarded "Outstanding Paper for Scientific Understanding In Reinforcement Learning" at <a href="https://rl-conference.cc/2025/index.html">RLC 2025</a>!</li>
-                  <li>(06/25) I started a Research Scientist internship at <a href="https://wayve.ai/">Wayve</a>.</li>
-                  <li>(12/24) <a href="https://arxiv.org/pdf/2407.07082">OPEN</a> was awarded a Spotlight at NeurIPS 2024!</li>
-                  <li>(07/24) I took part in a panel discussion at the <a href="https://autorlworkshop.github.io/"> AutoRL workshop in ICML24.</a></li>
-                  <li>(06/24) <a href="https://arxiv.org/pdf/2407.07082">OPEN</a> was awarded a Spotlight at the <a href="https://autorlworkshop.github.io/"> AutoRL workshop in ICML24.</a></li>
-                  <li>(10/22) I started my PhD on <a href="https://aims.robots.ox.ac.uk/">AIMS</a> at the University of Oxford.</li>
-                  <li>(07/22) I <a href="images/graduation.jpg">graduated</a> from my MEng Engineering Science at the University of Oxford with a high First!</li>
-                </ul>
-              </td>
-            </tr>
-          </tbody></table>
+    /* Publications - other */
+    ul.other { list-style: none; margin: 0; padding: 0; }
+    ul.other li { padding: 12px 0; border-bottom: 1px solid #f2f3f5; }
+    ul.other li:last-child { border-bottom: none; }
+    ul.other .title { font-size: 14.5px; font-weight: 600; }
+    ul.other .title a { color: var(--ink); }
+    ul.other .title a:hover { color: var(--accent); }
+    ul.other .meta { color: var(--muted); font-size: 13px; margin-top: 2px; }
+    ul.other .meta a { color: var(--muted); text-decoration: underline; }
+    ul.other .meta a:hover { color: var(--accent); }
 
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-              <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>Research</h2>
-                <p>
-                </p>
-              </td>
-            </tr>
-          </tbody></table>
-          <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td width="33%" valign="center" align="center"><img src="images/RPM.png" alt="sym" width="90%" style="border-radius:15px"></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">AI Research Preference Models</h3>
-                  <p style="margin: 5px 0;">Thomas Simon Foster*, Bassel Al Omari*, Tingchen Fu*, Thomas Mann, Carl Domond, Lucia Cipolina-Kun, Bhavul Gauri, Muna Aghamelu, <b>Alexander D. Goldie</b>, Eryk Helenowski, Jean-Christophe Gagnon-Audet, Alberto Pepe, Saba Nazir, Daniel Izcovich, Noam Levi, Rishi Hazra, Karen Hambardzumyan, Nicolas Baldwin, Xian Li, Martin Josifoski, Paris Giampouras, Masoud Jalili Sabet, Anya Sims, Hela Momand, Tatiana Shavrina, Despoina Magka, Jason Weston, Yulin Wang, Anirudh Goyal, João Henriques, Yoram Bachrach, Emily McMilin, Jakob Nicolaus Foerster</p>
-                  <div class="paper" id="foster2026rpm" style="padding-bottom: 15px;">
-                      <a href="https://arxiv.org/pdf/2608.13940">paper</a> |
-                      <a href="https://x.com/BasselAlOmari_/status/2094510804217606564">tweet</a>
-                  </div>
-              </td></tr>
-          <!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->
-           <tr>
-              <td width="33%" valign="center" align="center"><img src="images/inverting.jpg" alt="sym" width="90%" style="border-radius:15px"></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">Inverting the Bellman Equation: From Q-Values to World Models</h3>
-                  <p style="margin: 5px 0;">Alistair Letcher, Mattie Fellows, <b>Alexander D. Goldie</b>, Jonathan Richens, Jakob N. Foerster, Oliver Richardson</p>
-                  <div class="paper" id="letcher2026inverting" style="padding-bottom: 15px;">
-                      <a href="https://arxiv.org/pdf/2606.21173">paper</a> |
-                      <a href="https://x.com/_aletcher/status/2069412693744713935">tweet</a>
-                  </div>
-              </td>
-            </tr>
-          <!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->
-           
-            <tr bgcolor="#ffffd0">
-              <td width="33%" valign="center" align="center"><a href="https://discogen.github.io"><img src="images/discogen.svg" alt="sym" width="90%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">DiscoGen: Procedural Generation of Algorithm Discovery Tasks in Machine Learning</h3>
-                  <p style="margin: 5px 0;"><b>Alexander D. Goldie</b>, Zilin Wang, Adrian Hayler, Deepak Nathani, Edan Toledo, Ken Thampiratwong, Aleksandra Kalisz, Michael Beukman, Alistair Letcher, Shashank Reddy, Clarisse Wibault, Theo Wolf, Charles O'Neill, Uljad Berdica, Nicholas Roberts, Saeed Rahmani, Hannah Erlebach, Roberta Raileanu, Shimon Whiteson, Jakob N. Foerster</p>
-                  <p style="margin: 5px 0;"><b>ICML 2026</b></p>
-                  <div class="paper" id="goldie2025discogen" style="padding-bottom: 15px;">
-                      <a href="https://arxiv.org/pdf/2603.17863">paper</a> |
-                      <a href="https://discogen.github.io">site</a> |
-                      <a href="https://github.com/AlexGoldie/discogen">code</a> |
-                      <a href="https://x.com/AlexDGoldie/status/2036868063690137712">tweet</a>
-                  </div>
-              </td>
-          </tr>
-          <!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->
-              <tr>
-              <td width="33%" valign="center" align="center"><a href="https://arxiv.org/pdf/2511.16652"><img src="images/eggroll.png" alt="sym" width="90%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">Evolution Strategies At The Hyperscale</h3>
-                  <p style="margin: 5px 0;">Bidipta Sarkar*, Mattie Fellows*, Juan Agustin Duque*, Alistair Letcher, Antonio León Villares, Anya Sims, Clarisse Wibault, Dmitry Samsonov, Dylan Cope, Jarek Liesen, Kang Li, Lukas Seier, Theo Wolf, Uljad Berdica, Valentin Mohl, <b>Alexander D. Goldie</b>, Aaron Courville, Karin Sevegnani, Shimon Whiteson, Jakob N. Foerster</p>
-                  <p style="margin: 5px 0;"><b>ICML 2026</b></p>
-                  <div class="paper" id="sarkar2026eggroll" style="padding-bottom: 15px;">
-                      <a href="https://arxiv.org/pdf/2511.16652">paper</a> |
-                      <a href="https://github.com/ESHyperscale/HyperscaleES">code</a> |
-                      <a href="https://eshyperscale.github.io/">site</a> |
-                      <a href="https://x.com/bidiptas13/status/1991908905144967245">tweet</a>
-                  </div>
-              </td>
-          </tr>
-          <!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->                     
-           
-          
-          <tr>
-              <td width="33%" valign="center" align="center"><a href="https://arxiv.org/pdf/2605.22711"><img src="images/arl.png" alt="sym" width="90%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">Abstraction for Offline Goal-Conditioned Reinforcement Learning</h3>
-                  <p style="margin: 5px 0;">Clarisse Wibault, <b>Alexander D. Goldie</b>, Antonio Villares, Maike Osborne, Jakob N. </p>
-                  <p style="margin: 5px 0;"><b>DEMO Workshop @ RLC 2026</b></p>
-                  <div class="paper" id="wibault2026anoptimisation" style="padding-bottom: 15px;">
-                      <a href="https://arxiv.org/pdf/2605.22711">arXiv</a> |
-                      <a href="https://clarisse-wibault.github.io/arl/">site</a> |
-                      <a href="https://x.com/ClarisseWibault/status/2057801725851980067">tweet</a>
-                  </div>
-              </td>
-          </tr>
-<!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->
-                      <tr>
-              <td width="33%" valign="center" align="center"><a href="https://openreview.net/pdf?id=OadAJrqkqc"><img src="images/mbml.svg" alt="sym" width="90%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">Model-Based Meta-Learning for Algorithm Discovery</h3>
-                  <p style="margin: 5px 0;">Theo Wolf, <b>Alexander D. Goldie</b>, Jarek Liesen, Uljad Berdica, Mattie Fellows, Jakob N. Foerster</p>
-                  <p style="margin: 5px 0;"><b>World Models Workshop @ ICLR 2026</b></p>
-                  <div class="paper" id="wolf2026model" style="padding-bottom: 15px;">
-                      <a href="https://openreview.net/pdf?id=OadAJrqkqc">paper</a>
-                  </div>
-              </td>
-          </tr>
-          <!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->
+    @media (max-width: 600px) {
+      header.hero { flex-direction: column-reverse; }
+      header.hero img { width: 100px; height: 100px; }
+      .pub { flex-direction: column; }
+      .pub img { width: 100%; height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div class="text">
+        <h1>Alexander D. Goldie</h1>
+        <p class="role">PhD Student, University of Oxford</p>
+        <p>I am a PhD student at the University of Oxford, supervised by Jakob Foerster and Shimon Whiteson. My research focuses on (meta-)reinforcement learning, automated algorithm discovery, and autonomous research and discovery.</p>
+        <p>I'm currently a research intern at Meta on the AI Research Agents team, supervised by Yoram Bachrach. Before that, I was a Research Scientist Intern at <a href="https://wayve.ai/">Wayve</a>, working on offline reinforcement learning for autonomous driving. My PhD is offered by <a href="https://aims.robots.ox.ac.uk/">AIMS</a>, a competitive PhD-level course for Machine Learning.</p>
+        <p class="links">
+          <a href="mailto:goldie@robots.ox.ac.uk">Email</a><span>/</span>
+          <a href="data/GOLDIE_CV.pdf">CV</a><span>/</span>
+          <a href="https://scholar.google.com/citations?user=wogOjBsAAAAJ&hl=en">Scholar</a><span>/</span>
+          <a href="https://twitter.com/alexdgoldie">Twitter</a><span>/</span>
+          <a href="https://github.com/alexgoldie/">GitHub</a><span>/</span>
+          <a href="https://linkedin.com/in/alex-goldie-ml/">LinkedIn</a>
+        </p>
+      </div>
+      <img src="images/AlexGoldie.jpeg" alt="Alexander D. Goldie">
+    </header>
 
-            <tr>
-              <td width="33%" valign="center" align="center"><a href="https://arxiv.org/pdf/2602.15891"><img src="images/nomad.png" alt="sym" width="90%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">Learning To Drive in New Cities Without Human Demonstrations</h3>
-                  <p style="margin: 5px 0;">Zilin Wang, Saeed Rahmani, Daphne Cornelisse, Bidipta Sarkar, <b>Alexander D. Goldie</b>, Jakob N. Foerster, Shimon Whiteson</p>
-                  <p style="margin: 5px 0;"><b>SAD Workshop @ CVPR 2026</b></p>
-                  <div class="paper" id="wang2026learning" style="padding-bottom: 15px;">
-                      <a href="https://arxiv.org/pdf/2602.15891">paper</a> |
-                      <a href="https://github.com/nomaddrive/nomad">code</a> |
-                      <a href="https://nomaddrive.github.io/">site</a> |
-                      <a href="https://x.com/zilinwang4ai/status/2024861663946743906">tweet</a>
-                  </div>
-              </td>
-          </tr>
-          <!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->
-            <tr bgcolor="#ffffd0">
-              <td width="33%" valign="center" align="center"><a href="https://arxiv.org/pdf/2507.17668"><img src="images/RLCFig.png" alt="sym" width="90%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">How Should We Meta-Learn Reinforcement Learning Algorithms?</h3>
-                  <p style="margin: 5px 0;"><b>Alexander D. Goldie</b>, Zilin Wang, Jaron Cohen, Jakob N. Foerster, Shimon Whiteson</p>
-                  <p style="margin: 5px 0;"><b>RL Conference 2025 (Outstanding Paper)</b></p>
-                  <div class="paper" id="goldie2025MetaLearning" style="padding-bottom: 15px;">
-                      <a href="https://arxiv.org/pdf/2507.17668">arXiv</a> |
-                      <a href="https://github.com/AlexGoldie/learn-rl-algorithms">code</a> |
-                      <a href="https://x.com/AlexDGoldie/status/1948421413875909061">tweet</a>
-                  </div>
-              </td>
-          </tr>
-          <!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->
-              <tr>
-              <td width="33%" valign="center" align="center"><a href="https://arxiv.org/pdf/2505.20659"><img src="images/ncc.svg" alt="sym" width="90%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">An Optimisation Framework For Unsupervised Environment Design</h3>
-                  <p style="margin: 5px 0;">Nathan Monette, Alistair Letcher, Michael Beukman, Matthew T. Jackson, Alexander Rutherford, <b>Alexander D. Goldie</b>, Jakob N. Foerster</p>
-                  <p style="margin: 5px 0;"><b>RL Conference 2025</b></p>
-                  <div class="paper" id="monette2025an" style="padding-bottom: 15px;">
-                      <a href="https://arxiv.org/pdf/2505.20659">arXiv</a> |
-                      <a href="https://github.com/nmonette/NCC-UED">code</a> |
-                      <a href="https://nmonette.github.io/optimising-ued/">site</a> |
-                      <a href="https://x.com/nathanrmonette/status/1927624568623218849">tweet</a>
-                  </div>
-              </td>
-          </tr>
-          <!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->
-          <tr bgcolor="#ffffd0">
-              <td width="33%" valign="center" align="center"><a href="https://arxiv.org/pdf/2507.17668"><img src="images/OPEN_Animation.gif" alt="sym" width="90%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">Can Learned Optimization Make Reinforcement Learning Less Difficult?</h3>
-                  <p style="margin: 5px 0;"><b>Alexander D. Goldie</b>, Chris Lu, Matthew T. Jackson, Shimon Whiteson, Jakob N. Foerster</p>
-                  <p style="margin: 5px 0;"><b>NeurIPS 2024 (Spotlight Award)</b></p>
-                  <p style="margin: 5px 0;"><i>Also at AutoRL Workshop @ ICML2024 (Spotlight)</i></p>
-                  <div class="paper" id="goldie2024can" style="padding-bottom: 15px;">
-                      <a href="https://arxiv.org/pdf/2407.07082">arXiv</a> |
-                      <a href="https://github.com/AlexGoldie/learn-rl-algorithms">code</a> |
-                      <a href="https://x.com/AlexDGoldie/status/1948421413875909061">tweet</a>
-                  </div>
-              </td>
-          </tr>
-          <tr>
-              <td width="33%" valign="center" align="center"><a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/f2733d3b0dde1d74995f35a9cf442d38-Paper-Conference.pdf"><img src="images/Adam-Rel.png" alt="sym" width="60%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">Adam On Local Time: Addressing Nonstationarity In RL With Relative Adam Timesteps</h3>
-                  <p style="margin: 5px 0;">Benjamin Ellis*, Matthew T. Jackson*, Andrei Lupu, <b>Alexander D. Goldie</b>, Mattie Fellow, Shimon Whiteson, Jakob N. Foerster</p>
-                  <p style="margin: 5px 0;"><b>NeurIPS 2024</b></p>
-                  <div class="paper" id="ellis2024adam" style="padding-bottom: 15px;">
-                      <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/f2733d3b0dde1d74995f35a9cf442d38-Paper-Conference.pdf">paper</a> 
-                  </div>
-              </td>
-          </tr>
-<!-- -=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=- -->
-          <tr>
-              <td width="33%" valign="center" align="center"><a href="https://openreview.net/pdf?id=dwKIyvYURI"><img src="images/WMUED.png" alt="sym" width="90%" style="border-radius:15px"></a></td>
-              <td width="67%" valign="top">
-                  <h3 style="display: block; margin-bottom: 8px;">Robust Offline Learning via Adversarial World Models</h3>
-                  <p style="margin: 5px 0;">Uljad Berdica, Kelvin Li, Michael Beukman, <b>Alexander D. Goldie</b>, Mattie Fellows, Perla Maiolino, Jakob N. Foerster</p>
-                  <p style="margin: 5px 0;"><b>Open-World Agents Workshop & Adversarial ML Workshop @ NeurIPS24</b></p>
-                  <div class="paper" id="berdica2024investigating" style="padding-bottom: 15px;">
-                      <a href="https://openreview.net/pdf?id=dwKIyvYURI">paper</a>
-                  </div>
-              </td>
-          </tr>
-          </tbody></table>
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:0px">
-                <br>
-                <p style="text-align:center;font-size:small;">
-                  Website template by <a href="https://github.com/jonbarron/jonbarron_website" style="font-size:small;">Jon Barron</a> and inspired by <a href="https://chrislu.page" style="font-size:small;">Chris Lu</a>.
-                </p>
-                </p>
-              </td>
-            </tr>
-          </tbody></table>
-          
-        </td>
-      </tr>
-    </table>
-  </body>
+    <section>
+      <h2>News</h2>
+      <ul class="news">
+        <li><span class="date">Aug 2026</span><span>I was invited to a 4-day <a href="https://www.linkedin.com/posts/mlindauer_over-the-last-three-days-we-luh-ai-and-ugcPost-7493399394701000704-w9Yf/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAACqyUwEBMmH1j65bjd1ThnDGMHmRysqjPKc">workshop</a> on Real-World RL, at the University of Hannover. I gave both a vision talk and a technical talk.</span></li>
+        <li><span class="date">Jun 2026</span><span>I started my Research Scientist Internship at Meta, on the AI Research Agents team!</span></li>
+        <li><span class="date">May 2026</span><span><a href="https://arxiv.org/pdf/2603.17863">DiscoGen</a> was accepted to ICML 2026!</span></li>
+        <li><span class="date">Apr 2026</span><span>I won a grant worth $240k from Open Philanthropy, on behalf of the lab, for scaling faithfulness in chain-of-thought reasoning.</span></li>
+        <li><span class="date">Feb 2026</span><span>I gave the inaugural Cruickshank Lecture about DiscoGen at <a href="https://inherentlabs.ai/">Inherent Labs</a>.</span></li>
+      </ul>
+      <details class="more-news">
+        <summary>7 earlier entries</summary>
+        <ul class="news">
+          <li><span class="date">Nov 2025</span><span>My internship at <a href="https://wayve.ai/">Wayve</a> finished. During my internship, for a while, I developed the main model which was driving the Wayve car!</span></li>
+          <li><span class="date">Aug 2025</span><span>I was invited to talk on <a href="https://open.spotify.com/episode/79pRNQiWM86ACo0XqeI1Vz?si=7d89c909852844df">two</a> <a href="https://open.spotify.com/episode/1LfvXdNbHUSs8P3jL5MUVS?si=36a06d2f390a425f">episodes</a> of TalkRL.</span></li>
+          <li><span class="date">Aug 2025</span><span><a href="https://arxiv.org/pdf/2507.17668">My paper</a> was awarded &ldquo;Outstanding Paper for Scientific Understanding In Reinforcement Learning&rdquo; at <a href="https://rl-conference.cc/2025/index.html">RLC 2025</a>!</span></li>
+          <li><span class="date">Jun 2025</span><span>I started a Research Scientist internship at <a href="https://wayve.ai/">Wayve</a>.</span></li>
+          <li><span class="date">Dec 2024</span><span><a href="https://arxiv.org/pdf/2407.07082">OPEN</a> was awarded a Spotlight at NeurIPS 2024!</span></li>
+          <li><span class="date">Oct 2022</span><span>I started my PhD on <a href="https://aims.robots.ox.ac.uk/">AIMS</a> at the University of Oxford.</span></li>
+          <li><span class="date">Jul 2022</span><span>I <a href="images/graduation.jpg">graduated</a> from my MEng Engineering Science at the University of Oxford with a high First!</span></li>
+        </ul>
+      </details>
+    </section>
+
+    <section>
+      <h2>Selected Publications</h2>
+
+      <div class="pub">
+        <img src="images/discogen.svg" alt="DiscoGen">
+        <div class="body">
+          <h3><a href="https://arxiv.org/pdf/2603.17863">DiscoGen: Procedural Generation of Algorithm Discovery Tasks in Machine Learning</a></h3>
+          <p class="authors">Alexander D. Goldie, Zilin Wang, Adrian Hayler, et al.</p>
+          <span class="venue">ICML 2026</span>
+          <p class="plinks">
+            <a href="https://arxiv.org/pdf/2603.17863">paper</a>
+            <a href="https://discogen.github.io">site</a>
+            <a href="https://github.com/AlexGoldie/discogen">code</a>
+            <a href="https://x.com/AlexDGoldie/status/2036868063690137712">tweet</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="pub">
+        <img src="images/RLCFig.png" alt="How Should We Meta-Learn RL Algorithms">
+        <div class="body">
+          <h3><a href="https://arxiv.org/pdf/2507.17668">How Should We Meta-Learn Reinforcement Learning Algorithms?</a></h3>
+          <p class="authors">Alexander D. Goldie, Zilin Wang, Jaron Cohen, Jakob N. Foerster, Shimon Whiteson</p>
+          <span class="venue">RLC 2025 &middot; Outstanding Paper</span>
+          <p class="plinks">
+            <a href="https://arxiv.org/pdf/2507.17668">paper</a>
+            <a href="https://github.com/AlexGoldie/learn-rl-algorithms">code</a>
+            <a href="https://x.com/AlexDGoldie/status/1948421413875909061">tweet</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="pub">
+        <img src="images/OPEN_Animation.gif" alt="OPEN">
+        <div class="body">
+          <h3><a href="https://arxiv.org/pdf/2407.07082">Can Learned Optimization Make Reinforcement Learning Less Difficult?</a></h3>
+          <p class="authors">Alexander D. Goldie, Chris Lu, Matthew T. Jackson, Shimon Whiteson, Jakob N. Foerster</p>
+          <span class="venue">NeurIPS 2024 &middot; Spotlight</span>
+          <p class="note">Also Spotlight at the AutoRL Workshop, ICML 2024.</p>
+          <p class="plinks">
+            <a href="https://arxiv.org/pdf/2407.07082">paper</a>
+            <a href="https://github.com/AlexGoldie/learn-rl-algorithms">code</a>
+            <a href="https://x.com/AlexDGoldie/status/1948421413875909061">tweet</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Other Publications</h2>
+      <ul class="other">
+        <li>
+          <div class="title"><a href="https://arxiv.org/pdf/2608.13940">AI Research Preference Models</a></div>
+          <div class="meta">Thomas S. Foster, Bassel Al Omari, Tingchen Fu, et al. &middot; arXiv &middot;
+            <a href="https://arxiv.org/pdf/2608.13940">paper</a> &middot;
+            <a href="https://x.com/BasselAlOmari_/status/2094510804217606564">tweet</a>
+          </div>
+        </li>
+        <li>
+          <div class="title"><a href="https://arxiv.org/pdf/2606.21173">Inverting the Bellman Equation: From Q-Values to World Models</a></div>
+          <div class="meta">Alistair Letcher, Mattie Fellows, et al. &middot; arXiv &middot;
+            <a href="https://arxiv.org/pdf/2606.21173">paper</a> &middot;
+            <a href="https://x.com/_aletcher/status/2069412693744713935">tweet</a>
+          </div>
+        </li>
+        <li>
+          <div class="title"><a href="https://arxiv.org/pdf/2511.16652">Evolution Strategies At The Hyperscale</a></div>
+          <div class="meta">Bidipta Sarkar, Mattie Fellows, Juan A. Duque, et al. &middot; ICML 2026 &middot;
+            <a href="https://arxiv.org/pdf/2511.16652">paper</a> &middot;
+            <a href="https://github.com/ESHyperscale/HyperscaleES">code</a> &middot;
+            <a href="https://eshyperscale.github.io/">site</a> &middot;
+            <a href="https://x.com/bidiptas13/status/1991908905144967245">tweet</a>
+          </div>
+        </li>
+        <li>
+          <div class="title"><a href="https://arxiv.org/pdf/2605.22711">Abstraction for Offline Goal-Conditioned Reinforcement Learning</a></div>
+          <div class="meta">Clarisse Wibault, et al. &middot; DEMO Workshop @ RLC 2026 &middot;
+            <a href="https://arxiv.org/pdf/2605.22711">paper</a> &middot;
+            <a href="https://clarisse-wibault.github.io/arl/">site</a> &middot;
+            <a href="https://x.com/ClarisseWibault/status/2057801725851980067">tweet</a>
+          </div>
+        </li>
+        <li>
+          <div class="title"><a href="https://openreview.net/pdf?id=OadAJrqkqc">Model-Based Meta-Learning for Algorithm Discovery</a></div>
+          <div class="meta">Theo Wolf, et al. &middot; World Models Workshop @ ICLR 2026 &middot;
+            <a href="https://openreview.net/pdf?id=OadAJrqkqc">paper</a>
+          </div>
+        </li>
+        <li>
+          <div class="title"><a href="https://arxiv.org/pdf/2602.15891">Learning To Drive in New Cities Without Human Demonstrations</a></div>
+          <div class="meta">Zilin Wang, Saeed Rahmani, et al. &middot; SAD Workshop @ CVPR 2026 &middot;
+            <a href="https://arxiv.org/pdf/2602.15891">paper</a> &middot;
+            <a href="https://github.com/nomaddrive/nomad">code</a> &middot;
+            <a href="https://nomaddrive.github.io/">site</a> &middot;
+            <a href="https://x.com/zilinwang4ai/status/2024861663946743906">tweet</a>
+          </div>
+        </li>
+        <li>
+          <div class="title"><a href="https://arxiv.org/pdf/2505.20659">An Optimisation Framework For Unsupervised Environment Design</a></div>
+          <div class="meta">Nathan Monette, et al. &middot; RLC 2025 &middot;
+            <a href="https://arxiv.org/pdf/2505.20659">paper</a> &middot;
+            <a href="https://github.com/nmonette/NCC-UED">code</a> &middot;
+            <a href="https://nmonette.github.io/optimising-ued/">site</a> &middot;
+            <a href="https://x.com/nathanrmonette/status/1927624568623218849">tweet</a>
+          </div>
+        </li>
+        <li>
+          <div class="title"><a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/f2733d3b0dde1d74995f35a9cf442d38-Paper-Conference.pdf">Adam On Local Time: Addressing Nonstationarity In RL With Relative Adam Timesteps</a></div>
+          <div class="meta">Benjamin Ellis, Matthew T. Jackson, et al. &middot; NeurIPS 2024 &middot;
+            <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/f2733d3b0dde1d74995f35a9cf442d38-Paper-Conference.pdf">paper</a>
+          </div>
+        </li>
+        <li>
+          <div class="title"><a href="https://openreview.net/pdf?id=dwKIyvYURI">Robust Offline Learning via Adversarial World Models</a></div>
+          <div class="meta">Uljad Berdica, et al. &middot; Open-World Agents &amp; Adversarial ML Workshops @ NeurIPS 2024 &middot;
+            <a href="https://openreview.net/pdf?id=dwKIyvYURI">paper</a>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+</body>
 </html>
